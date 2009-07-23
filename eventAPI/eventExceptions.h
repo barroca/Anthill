@@ -1,5 +1,5 @@
-#ifndef EVENT_ECEPTIONS_H__
-#define EVENT_ECEPTIONS_H__
+#ifndef EVENT_EXCEPTIONS_H__
+#define EVENT_EXCEPTIONS_H__
 
 /**Common exceptions used by the EventAPI
  *
@@ -31,4 +31,4 @@ public:
 }; // namespace anthill
 
 
-#endif // EVENT_ECEPTIONS_H__
+#endif // EVENT_EXCEPTIONS_H__
