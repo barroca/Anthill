@@ -88,9 +88,116 @@ void getFilterByTid(Layout *layout, int tid, FilterSpec **pFilterAddress, int *i
 
 /**************************************************************************/
 
+/**Sanity check for Two Senders and One Receiver
+ *
+ * The following scenario is not permited by AH currently.
+ * <pre>
+ * FilterA
+ *        \
+ *        v
+ *      FilterC, inputPort X
+ *        ^
+ *        /
+ * FilterB
+ * </pre>
+ *
+ * OTOH, the scenario with the streams inverted is allowed in this
+ * version of AntHill (Itamar's alterations... Not even God knows if
+ * they work)
+ *
+ * @return NO RETURN! This function terminates program execution if an error
+ * is found.
+ */
+void sanityCheckTwoSendersOneReceiver(Layout* l, StreamSpec* s)
+{
+	int i, j, k;
+	_filter_spec_ptr sIF = NULL; /* current stream input filter*/
+	_filter_spec_ptr sOF = NULL; /* current stream output filter*/
+	_filter_spec_ptr otherIF = NULL;
+	_filter_spec_ptr otherOF = NULL;
+
+	char* err_msg = "Invalid layout: filters  '%s' and '%s' are outputting"
+		        " to the same input port (%s) of filter '%s'\n";
+
+	sIF = s->fromFilter;
+	for (i = 0; i < l->numStreams; ++i ) {
+		StreamSpec* other = l->streams[i];
+		otherIF = other->fromFilter;
+		/* Same input port ... */
+		if (strcmp(s->toPortName, other->toPortName) == 0 ) {
+			/* ... and same output filter? No can do, buddy.*/
+			for(j = 0; j< s->numToSend; ++j) {
+				sOF = s->toFilter[j];
+				for(k = 0; k < other->numToSend; ++k) {
+					otherOF = other->toFilter[k];
+					if (sOF == otherOF ){
+						fprintf(stderr,
+							err_msg,
+							sIF->name,
+							otherIF->name,
+							s->toPortName,
+							sOF->name);
+						/* No reason to continue. */
+						exit(EXIT_FAILURE);
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+/**Sanity check for one sender writing for two receivers in two streams.
+ *
+ * The following scenario is not permited by AH currently.
+ * <pre>
+ *                FilterX
+ *                 ^
+ *                 /
+ * FilterA, ouputPort A
+ *                 \        << The test is executed from this stream's POV
+ *                 v
+ *                FilterY 
+ * </pre>
+ *
+ */
+void sanityCheckOneSenderTwoReceivers(Layout* l, StreamSpec* s)
+{
+	int i;
+	_filter_spec_ptr sIF = NULL; /* current stream input filter*/
+	_filter_spec_ptr otherIF = NULL; /* other stream input filter */
+
+	char* err_msg = "Invalid layout: filter '%s' @ port '%s' is"
+			" outputting to different streams at the same time\n";
+
+	sIF = s->fromFilter;
+	for (i = 0; i < l->numStreams; ++i ) {
+		StreamSpec* other = l->streams[i];
+		otherIF = other->fromFilter;
+		/* Same output port same (output) filter?  No can do, buddy. */
+		if ( (strcmp(s->fromPortName, other->fromPortName) == 0) &&
+		     (sIF == otherIF) )
+		{
+			fprintf(stderr, err_msg, sIF->name, s->fromPortName);
+			/* No reason to continue. */
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
 /* StreamSpec *************************************************************/
 //adds a stream to the layout, returns 1 on success, 0 otherwise
 int addStreamSpec(Layout *l, StreamSpec *s){
+
+	/* Sanity checks
+	 *
+	 * TODO: move documentation comments of those functions to .h
+	 */
+	sanityCheckOneSenderTwoReceivers(l, s);
+	sanityCheckTwoSendersOneReceiver(l, s);
+
+	/* Register Stream */
 	if (l->numStreams == MAXSTREAMS)
 		return 0;
 	else {
