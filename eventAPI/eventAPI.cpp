@@ -206,11 +206,26 @@ AHEventList *AHFilter::getEventList(streamInputHandler input){
 }
 
 streamInputHandler AHFilter::getInputHandler(string stream){
-	return (streamInputHandler) dsGetInputPortByName((char *)stream.c_str());
-	
+	streamInputHandler ret = dsGetInputPortByName((char*)stream.c_str());
+
+	if (ret < 0) {
+		std::string err_msg("Input handler for port '");
+		err_msg += stream;
+		err_msg += "' was not found.";
+		throw anthill::HandlerNotFoundError(err_msg);
+	}
+	return ret;
 }
 streamOutputHandler AHFilter::getOutputHandler(string stream){
-	return (OutputPortHandler) dsGetOutputPortByName((char *)stream.c_str());
+	streamOutputHandler ret = dsGetOutputPortByName((char*)stream.c_str());
+
+	if (ret < 0) {
+		std::string err_msg("Output handler for port '");
+		err_msg += stream;
+		err_msg += "' was not found.";
+		throw anthill::HandlerNotFoundError(err_msg);
+	}
+	return ret;
 }
 
 

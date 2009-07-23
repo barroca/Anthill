@@ -9,7 +9,7 @@ all: eventAPI.o
 main: eventAPI.o
 	${CC1} ${CFLAGS} ${CLIBSDIR} ${CLIBS} -fPIC eventAPI.o -o main 
 
-eventAPI.o: eventAPI.cpp eventAPI.h
+eventAPI.o: eventAPI.cpp eventAPI.h eventExceptions.h
 	${CC1} ${CFLAGS} -c eventAPI.cpp
 
 clean:

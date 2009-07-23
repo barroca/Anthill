@@ -2,6 +2,8 @@
 #ifndef EVENT_API_H
 #define EVENT_API_H
 
+#include "eventExceptions.h"
+
 #include <list>
 #include <map>
 #include <string>
@@ -395,7 +397,21 @@ class AHFilter
 		string getArgument(string argumentName);
 
 		AHEventList *getEventList(streamInputHandler input);
+
+		/**Return the stream handler associated with a given stream
+		 * input port name.
+		 *
+		 * @throws anthill::HandlerNotFoundError if a handler was not
+		 * 	found.
+		 */
 		streamInputHandler getInputHandler(string stream);
+
+		/**Return the stream handler associated with a given stream
+		 * output port name.
+		 *
+		 * @throws anthill::HandlerNotFoundError if a handler was not
+		 * 	found.
+		 */
 		streamOutputHandler getOutputHandler(string stream);
 
 		int getNumWriters(streamInputHandler input);
