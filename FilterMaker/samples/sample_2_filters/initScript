@@ -1,0 +1,42 @@
+#!/bin/bash 
+
+# program directory(absolute path)
+DIR_PROG=${HOME}/void/void_3.1/FilterMaker/sample
+
+# Void directory
+DIR_DS=${HOME}/void/void_3.1/
+# Filters directory
+DIR_FILTERS=${DIR_PROG}
+
+# the machine where manager is
+DISPLAY=clyde:0.0
+
+#uncomment to debug
+#if [ `hostname` = "dc06.bmi.ohio-state.edu" ] 
+#then
+	DEBUG=0
+#fi
+
+# manger binary
+BIN="main"
+# debugger command line
+DEBUGGER="ddd"
+
+#End of header
+#modify below this only if you know what youre doing
+##################################################################################
+cd ${DIR_PROG}
+export LD_LIBRARY_PATH=${DIR_DS}:${DIR_FILTERS}:${LD_LIBRARY_PATH}
+
+# calls application
+# format: ./<manager binary>  <this file name, initScript>
+if [ "$DEBUG" = 1 ]; then
+
+	echo -e "break main\n run $*\n break FilterData.c:40\n" > start.gdb
+
+	export DISPLAY=$DISPLAY
+	${DEBUGGER} ${BIN} -x start.gdb 
+#-x start.gdb
+else
+	./${BIN} $@ &> log/errorFilter$$.txt
+fi

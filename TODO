@@ -1,0 +1,11 @@
+Fazer recv nao blocante.
+Vai dar pau se for compilado com gcc 2.95 ou se funções do filtro estiverem
+	dentro de uma classe.
+The filter makefiles shoud not need to know where are all Void header 
+	files. They must stay in one directory line the include dir in the linux
+	kernel.
+Alterations in Void shoud not affect filter Makefiles nor initScripts.
+Make message buffering.
+Clean FilterDev.
+Use autoconf.
+Purge message packing and create a wrapper to it.

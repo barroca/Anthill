@@ -1,0 +1,50 @@
+
+Execution time for filterA.0
+timer_init          :          0.000009 seconds
+timer_proc          :          0.001340 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000009 seconds
+timer_w_bkd         :          0.925762 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000005 seconds
+timer_void          :          1.171005 seconds
+
+Execution time for filterA.0
+timer_init          :          0.000009 seconds
+timer_proc          :          0.001344 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000009 seconds
+timer_w_bkd         :          0.610493 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000005 seconds
+timer_void          :          1.228378 seconds
+
+Execution time for filterA.0
+timer_init          :          0.000009 seconds
+timer_proc          :          0.001340 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000009 seconds
+timer_w_bkd         :          0.664531 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000005 seconds
+timer_void          :          1.171256 seconds
+
+Execution time for filterA.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.001527 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000012 seconds
+timer_w_bkd         :          0.904528 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000013 seconds
+timer_void          :          0.843993 seconds
+
+Execution time for filterA.0
+timer_init          :          0.000009 seconds
+timer_proc          :          0.001340 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000008 seconds
+timer_w_bkd         :          0.605727 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000012 seconds
+timer_void          :          0.541411 seconds

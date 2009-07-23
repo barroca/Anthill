@@ -1,0 +1,20 @@
+
+Execution time for filterA.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.001614 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000012 seconds
+timer_w_bkd         :          0.620933 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000005 seconds
+timer_void          :         32.226721 seconds
+
+Execution time for filterA.0
+timer_init          :          0.000009 seconds
+timer_proc          :          0.001565 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000009 seconds
+timer_w_bkd         :          0.623853 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000007 seconds
+timer_void          :         30.457810 seconds

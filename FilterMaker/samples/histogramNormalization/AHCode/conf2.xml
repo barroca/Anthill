@@ -1,0 +1,13 @@
+<hostdec>
+	<host name="clyde">
+		<resource name="cache1"/>
+	<\host>
+</hostdec>
+<placement>
+	<filter name="f-cache" libname="f-cache.so" instances="1" attach="yes">
+		<instance demands="cache1"/>
+	</filter>
+	<filter name="f-pool" libname="f-pool.so" instances="1" attach="yes"/>
+</placement>
+<layout>
+</layout>

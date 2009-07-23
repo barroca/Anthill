@@ -1,0 +1,7 @@
+./main
+LD = /home/tavares/void/void_3.1:/home/tavares/void/void_3.1/samples/sample_print:.:/home/tavares/lib:/home/tavares/java1.5/jre/lib/
+recvFilterData: bytes = 170 msgtag = 0 tid = 262519
+FilterData.c: Warning, no mem declared using 512MB as memory value
+Inicializing filter B
+Processing filter B
+Stopping filter B

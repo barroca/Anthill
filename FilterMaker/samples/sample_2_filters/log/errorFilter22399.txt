@@ -1,0 +1,4 @@
+libpvm [t401bb]: pvm_start_pvmd(): Duplicate host
+filter filterA (rank: 0): pvm_tid:262587 hostname:clyde
+recvFilterData: bytes = 183 msgtag = 0 tid = 262586
+FilterData.c: Warning, no mem declared using 512MB as memory value

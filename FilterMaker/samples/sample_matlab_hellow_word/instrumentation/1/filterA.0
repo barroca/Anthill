@@ -1,0 +1,60 @@
+
+Execution time for filterA.0
+timer_init          :          5.179388 seconds
+timer_proc          :          0.007344 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000006 seconds
+timer_void          :          0.073340 seconds
+
+Execution time for filterA.0
+timer_init          :         21.490163 seconds
+timer_proc          :          0.026583 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.135734 seconds
+timer_void          :          0.038804 seconds
+
+Execution time for filterA.0
+timer_init          :          4.070628 seconds
+timer_proc          :          0.029320 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.089963 seconds
+timer_void          :          0.027462 seconds
+
+Execution time for filterA.0
+timer_init          :         10.303003 seconds
+timer_proc          :         33.987539 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.191807 seconds
+timer_void          :          0.096817 seconds
+
+Execution time for filterA.0
+timer_init          :          6.837497 seconds
+timer_proc          :          0.031122 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.159915 seconds
+timer_void          :          0.137203 seconds
+
+Execution time for filterA.0
+timer_init          :          5.994144 seconds
+timer_proc          :          0.027986 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.151996 seconds
+timer_void          :          0.085109 seconds

@@ -1,0 +1,25 @@
+<config>
+<hostdec>
+	<host name="astraeus" mem="512M "/>
+</hostdec>
+<placement>
+	<filter name="EnMsg" libname="EnMsg.so" instances="1">
+	</filter>
+	<filter name="acc" libname="acc.so" instances="1">
+	</filter>
+</placement>
+
+<layout>
+	<stream>
+		<!--from filter="EnMsg" port="saida" /-->
+		<from filter="EnMsg" port="saida" policy="ls" policylib="label.so" breakloop="yes"/>
+		<to filter="acc" port="entrada"  />
+	</stream>
+	<stream>
+		<!--from filter="acc" port="saida" /-->
+		<from filter="acc" port="saida"/>
+		<to filter="EnMsg" port="entrada"  />
+	</stream>
+</layout>
+
+</config>

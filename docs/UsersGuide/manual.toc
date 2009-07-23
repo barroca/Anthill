@@ -1,0 +1,32 @@
+\select@language {brazil}
+\contentsline {section}{\numberline {1}Introdu\c c\~ao}{2}
+\contentsline {section}{\numberline {2}Arquitetura do VOID}{2}
+\contentsline {section}{\numberline {3}Instala\c c\~ao do VOID}{3}
+\contentsline {section}{\numberline {4}Configura\c c\~ao}{4}
+\contentsline {subsection}{\numberline {4.1}Console}{5}
+\contentsline {subsubsection}{\numberline {4.1.1}{\it Debug}}{5}
+\contentsline {subsubsection}{\numberline {4.1.2}{\it Display} Remoto}{5}
+\contentsline {subsubsection}{\numberline {4.1.3}Exemplo de {\it initScript}}{5}
+\contentsline {subsection}{\numberline {4.2}Conf.xml}{6}
+\contentsline {subsubsection}{\numberline {4.2.1}{\it HostDec}}{7}
+\contentsline {subsubsection}{\numberline {4.2.2}{\it Placement}}{7}
+\contentsline {subsubsection}{\numberline {4.2.3}{\it Layout}}{8}
+\contentsline {subsubsection}{\numberline {4.2.4}Exemplo de conf.xml}{8}
+\contentsline {section}{\numberline {5}Tutorial de Programa\c c\~ao}{9}
+\contentsline {subsection}{\numberline {5.1}{\it Includes}}{9}
+\contentsline {subsection}{\numberline {5.2}Cria\c c\~ao de Filtros}{9}
+\contentsline {subsubsection}{\numberline {5.2.1}Inicializa\c c\~ao}{10}
+\contentsline {subsubsection}{\numberline {5.2.2}Processamento}{10}
+\contentsline {subsubsection}{\numberline {5.2.3}Finaliza\c c\~ao}{11}
+\contentsline {subsection}{\numberline {5.3}Toler\^ancia a Falhas}{12}
+\contentsline {subsection}{\numberline {5.4}Cria\c c\~ao da Aplica\c c\~ao Principal}{13}
+\contentsline {subsection}{\numberline {5.5}Compila\c c\~ao}{14}
+\contentsline {section}{\numberline {6}API}{14}
+\contentsline {subsection}{\numberline {6.1}Fun\c c\~oes de Programa\c c\~ao dos Filtros}{14}
+\contentsline {subsection}{\numberline {6.2}Fun\c c\~oes de Programa\c c\~ao da Aplica\c c\~ao Principal}{15}
+\contentsline {subsection}{\numberline {6.3}Fun\c c\~oes de Toler\^ancia a Falhas}{15}
+\contentsline {subsubsection}{\numberline {6.3.1}API de Tarefas}{15}
+\contentsline {subsubsection}{\numberline {6.3.2}API de dados}{15}
+\contentsline {section}{\numberline {7}Exemplos Completos}{16}
+\contentsline {subsection}{\numberline {7.1}DivP4}{16}
+\contentsline {subsection}{\numberline {7.2}Sample\_Print\_Task}{22}

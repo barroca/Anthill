@@ -1,0 +1,45 @@
+#!/bin/bash 
+
+# program directory(absolute path)
+DIR_PROG=${HOME}/sci_workflow/trunk/void_3.1/api_c++/samples
+
+# Void directory
+DIR_DS=${HOME}/sci_workflow/trunk/void_3.1/
+# Filters directory
+DIR_FILTERS=${DIR_PROG}
+
+TOOLKIT_LIBS=${HOME}/sci_workflow/install/lib
+
+# the machine where manager is
+DISPLAY=claudinha:0.0
+
+#uncomment to debug
+#if [`hostname` = "poseidon"]
+#then
+	DEBUG=1
+#fi
+
+# manger binary
+BIN="main"
+# debugger command line
+DEBUGGER="ddd"
+
+#End of header
+#modify below this only if you know what youre doing
+##################################################################################
+cd ${DIR_PROG}
+
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${DIR_DS}:${DIR_FILTERS}:${TOOLKIT_LIBS}
+
+# calls application
+# format: ./<manager binary>  <this file name, initScript>
+if [ "$DEBUG" = 1 ]; then
+
+	echo -e "break main\n run $*\n break FilterData.c:40" > start.gdb
+
+	export DISPLAY=$DISPLAY
+    ${DEBUGGER} ${BIN} -x start.gdb 
+#-x start.gdb
+else
+    ./${BIN} $@
+fi

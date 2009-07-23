@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<request xmlns="projectmobius.org/1/Message" type="XPathRequest">
+  <MobiusHeader xmlns="projectmobius.org/1/Header" messageType="request">
+    <requestors>
+      <serviceIdentifier xmlns="" serviceId="MobiusClient" />
+    </requestors>
+    <responders />
+  </MobiusHeader>
+  <XPathRequest collection="%s" levelsToMaterialize="0" materializeIncludes="false">
+	<NamespaceDefinitions xmlns="">
+		<NamespaceDefinition prefix="matlab" namespace="matlabLib.org/1/matlabLib" />
+		<NamespaceDefinition prefix="osc" namespace="osc.edu/1/header" />
+		<NamespaceDefinition prefix="osp" namespace="osc.edu/1/project" />
+		<NamespaceDefinition prefix="osv" namespace="osc.edu/1/volume" />
+		<NamespaceDefinition prefix="mako" namespace="projectmobius.org/1/mako" />
+		<NamespaceDefinition prefix="xs" namespace="http://www.w3.org/2001/XMLSchema" />
+    </NamespaceDefinitions>
+    <query xmlns=""><![CDATA[%query]]></query>
+  </XPathRequest>
+</request>

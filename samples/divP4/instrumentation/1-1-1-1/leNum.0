@@ -1,0 +1,70 @@
+
+Execution time for leNum.0
+timer_init          :          0.000010 seconds
+timer_proc          :          0.000008 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000018 seconds
+timer_w_bkd         :          0.001699 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000006 seconds
+timer_void          :          0.114713 seconds
+
+Execution time for leNum.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.000007 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000016 seconds
+timer_w_bkd         :          0.000947 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000007 seconds
+timer_void          :          0.090492 seconds
+
+Execution time for leNum.0
+timer_init          :          0.000010 seconds
+timer_proc          :          0.000006 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000017 seconds
+timer_w_bkd         :          0.015642 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000006 seconds
+timer_void          :          0.080582 seconds
+
+Execution time for leNum.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.000007 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000017 seconds
+timer_w_bkd         :          0.007704 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000007 seconds
+timer_void          :          0.221874 seconds
+
+Execution time for leNum.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.000014 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000025 seconds
+timer_w_bkd         :          0.004593 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000011 seconds
+timer_void          :          0.025206 seconds
+
+Execution time for leNum.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.000014 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000024 seconds
+timer_w_bkd         :          0.010323 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000010 seconds
+timer_void          :          0.028802 seconds
+
+Execution time for leNum.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.000014 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000024 seconds
+timer_w_bkd         :          0.000421 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000011 seconds
+timer_void          :          0.048511 seconds

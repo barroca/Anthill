@@ -1,0 +1,1392 @@
+\documentclass[brazil,12pt,a4paper]{article}
+
+\usepackage{a4wide}
+\usepackage[brazil]{babel}
+\usepackage{vmargin}
+\usepackage{indentfirst}
+\usepackage[latin1]{inputenc}
+\usepackage{psfig}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{latexsym}
+\usepackage{framed}
+
+\bibliographystyle{alpha}
+
+\pagestyle{fancy}
+\chead{}
+\rhead{Guia do Usuário do VOID3}
+\rfoot{\thepage}
+\cfoot{}
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{center}
+
+
+
+{\LARGE    {\bf Guia do Usuário do VOID3}}\\
+\vspace{3mm}
+{\LARGE Versão 0.1}
+
+\vspace{30mm}
+G. Teodoro, B. Coutinho, T. Tavares e M. Ribeiro
+\vspace{60mm}
+
+Departamento de Ciência da Computação\\
+Universidade Federal de Minas Gerais\\
+Belo Horizonte MG Brazil 31270-010\\
+\{george, coutinho, ttavares, mribeiro\}@dcc.ufmg.br\\
+
+
+\vspace{1cm}
+
+\today
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+%\begin{resumo} 
+%nananana
+%\end{resumo}
+
+\section{Introdução}
+\label{intro}
+
+O VOID é um {\it framework} que permite descrever e implementar aplicações
+como um gráfico de componentes, que podem executados em um ambiente 
+heterogêneo distribuído. O modelo de programação do VOID, chamado de 
+{\it filter-stream}, representa componentes de aplicações intensivas em 
+dados como um conjunto de filtros, como visto na figura~\ref{filterS}. 
+Cada componente opera no estilo 
+de fluxo de dados, onde repetidamente lê de {\it buffers} de entrada ({\it streams}), 
+executa o processamento definido pela aplicação, sobre os dados lidos, e 
+escreve em algum {\it stream} de saída. O VOID provê um conjunto básico 
+de serviços, na sua maioria referentes a comunicação, nos quais 
+desenvolvedores podem implementar aplicações para serviços específicos.
+
+Descreveremos nesse documento a implementação de uma aplicação, em detalhes
+suficientes, para habilitar o leitor a configurar o VOID e desenvolver 
+novas aplicações.
+
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[scale=0.5]{images/filter-stream2.eps}
+\caption{Filter Stream}
+\label{filterS}
+\end{center}
+\end{figure}
+
+
+\section{Arquitetura do VOID}
+\label{sec:arq}
+
+O VOID é um ambiente de programação desenvolvido em {\bf C} que implementa a abstração do 
+paradigma {\it filter-stream}. Este permite que o programador desenvolva aplicações que 
+rodam em {\it cluster} de forma simples e transparente, além
+de possuir mecanismos internos que permitem tolerância a falhas e o comportamento
+dinâmico de máquinas disponíveis à aplicação (máquinas podem entrar e sair do 
+conjunto de máquinas disponíveis à aplicação durante processamento).
+
+A arquitetura do VOID é, em sua forma mais genérica, composta por um gerente ( {\it Manager} ) 
+e filtros da aplicação, como pode ser visto na figura~\ref{fig:arq}. O papel do gerente
+é ler o arquivo de configuração do sistema, que é descrito na seção~\ref{sec:confxml},
+garantir que as aplicações sejam executadas de acordo com o especificado e
+cuidar da monitoração das aplicações em execução. Os filtros, por sua vez, percorrem 
+um caminho diferente, antes de começarem a execução esses recebem, enviadas pelo gerente, 
+informações necessárias a suas configurações, estas informações são, dentre outras:
+
+\begin{itemize}
+	\item O nome do filtro;
+	\item Quantos filtros do seus tipo existem;
+	\item Qual filtro você é dentre os existentes do seu tipo;
+	\item Quantos e quais são seus {\it streams} de entrada;
+	\item Quantos e quais são os {\it streams} de saída;
+	\item do gerente, sobre os {\it streams} aos quais
+\end{itemize}
+
+Assim, após os recebimento dessa informações, os filtros podem prosseguir com a execução
+das tarefas de processamento. A partir da figura~\ref{fig:arq}, que mostra a arquitetura do VOID,
+nota-se que na construção do VOID utilizou-se como base a biblioteca 
+de programação PVM ({\it Parallel Virtual Machine}). Escolheu-se essa
+ferramenta, principalmente, por que a mesma representa muito bem as abstrações
+do paradigma {\it filter-stream}.
+
+Algumas características importantes da biblioteca são:
+
+\begin{itemize}
+	\item Interoperabilidade: uma API desenvolvida sobre o PVM pode ser migrada para varias 
+		arquiteturas diferentes;
+
+	\item Dinamicidade: pode-se inserir/retirar computadores durante o processamento, sendo os 
+		seus processos migrados;
+
+	\item Tolerância a Falha: O PVM possui mecanismos simples de tolerância a falha que comunicam 
+		quando dado processo não finalizou sua execução normalmente.
+
+	\item Comunicação Simplificada: O PVM possui mecanismos de comunicação simples que são utilizados 
+		para a construção das funções implementadas;
+\end{itemize}
+
+Com as características apresentas, as tarefas de implementação foram drasticamente 
+simplificadas. Na seção~\ref{sec:api}, apresentamos as funções disponibilizadas pelo
+VOID3.
+
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[scale=0.3]{images/arquitetura.eps}
+\caption{VOID}
+\label{fig:arq}
+\end{center}
+\end{figure}
+
+
+\section{Instalação do VOID}
+\label{instaVOID}
+
+A instalação do VOID pode ser feita seguindo os passos abaixo:
+
+\begin{enumerate}
+	\item Requisitos Básicos
+
+		As seguintes dependências, são na sua maioria, referentes a 
+		pacotes {\it Debian}.
+
+		\begin{itemize}
+			\item pvm-dev
+			\item pvm
+			\item make
+		\end{itemize}
+
+\vspace{0.2cm}
+
+	\item Obtendo o código do CVS:\\
+%\begin{framed}
+		{\it cvs -d /home/speed/coutinho/cvsroot co void3}
+%\end{framed}
+
+\vspace{0.2cm}
+	\item Compilando o código do VOID
+	
+		cd void3;
+
+		make;
+\end{enumerate}
+
+\section{Configuração}
+\label{sec:conf}
+
+Todas aplicações precisam especificar o {\it layout} do sistema (quais filtros
+são usados e como eles se conectam), o {\it placement} 
+(mapa de filtros por {\it hostname}) e o {\it hostdec}, onde declaramos
+quais os {\it hosts} estão definidos e os recursos associados a cada máquina. 
+Além das definições anteriores, que são feitas em um arquivo, as aplicações 
+devem definir as variáveis do {\it console}. A seguir, nas sub-seções
+adequadas, definimos o formato desses arquivos.
+
+\subsection{Console}
+\label{sec:console}
+
+O arquivo de configuração do console, chamado de {\it initScript}, 
+é usado para executar a aplicação. Portanto, todas as aplicações 
+precisam especificar as configurações que serão usadas, e as mesmas 
+devem seguir o formato discutido nessa seção.
+O arquivo de configuração começa com {\it \#!/bin/bash}, e em seguida,
+tem as seguintes variáveis:
+
+\begin{table}[!htb]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+DIR\_PROG= & Endereço completo do diretório da aplicação. \\
+&Ex: /var/tmp/george/void3/samples/sample\_print\_task \\ \hline
+
+DIR\_VOID= & Endereço relativo do VOID. Nesse caso seria ../../ \\ \hline
+
+DIR\_FILTROS= & Endereço relativo das bibliotecas dos Filtros. Ex ./ \\ \hline
+
+DISPLAY= & Nome da máquina onde o DISPLAY será aberto.\\
+& local-hostname:0 \\ \hline
+
+DEBUG= & Caso deseje depurar 1, caso contrário 0. \\ \hline
+BIN= & Nome do programa principal. Ex .``main" \\ \hline
+DEBUGGER= & Nome do depurador utilizado. Ex ``ddd" ou ``gdb" \\ \hline
+\end{tabular}
+\caption{Opções de Configuração do Console}
+\label{tab:optconsole}
+\end{center}
+\end{table}
+
+\subsubsection{{\it Debug}}
+\label{sec:debug}
+
+Para facilitar a vida do desenvolvedor existe a opção de depuração de código.
+É necessário que o desenvolvedor habilite corretamente as variáveis DISPLAY, que são
+DEBUG e DEBUGGER, como descrito na tabela~\ref{tab:optconsole}, os depuradores 
+suportados são {\it ddd} e {\it gdb}.
+
+O VOID já registra e captura os seguintes sinais: {\bf SIGSEGV}, {\bf SIGKILL} e 
+{\bf SIGHUP}. Esses são repassados ao processo gerente, pelos filtros, que por sua vez 
+finalizam a aplicação.
+
+\subsubsection{{\it Display} Remoto}
+\label{sec:display}
+
+As providências a serem tomadas para depurar os programas utilizando {\it dispay} 
+remoto são:
+
+\begin{itemize}
+	\item O programador precisa executar o comando ``{\it xhost +}" na máquina local.
+	
+	\item Deve-se configurar a variável DISPLAY, descrita na 
+		tabela~\ref{tab:optconsole}.
+\end{itemize}
+
+\subsubsection{Exemplo de {\it initScript}}
+\label{sec:initScript}
+
+Abaixo temos um exemplo completo de {\it initScript}:
+\begin{framed}
+\begin{verbatim}
+#!/bin/bash
+
+#Directory do programa
+DIR_PROG="/home/speed/george/void3/samples/sample_print_task"
+
+# Coloque aqui o directory contendo as bibliotecas do Datasucker 
+#e dos filtros
+DIR_VOID=../../
+DIR_FILTROS=./
+
+DISPLAY=orfeu:0
+
+# se quiser depurar não comente
+if [ `hostname` = "eirene" ] 
+then
+        DEBUG=1
+fi
+
+# nome do binário do console
+BIN="main"
+DEBUGGER="ddd"
+
+####################################################################
+cd ${DIR_PROG}
+export LD_LIBRARY_PATH=${DIR_VOID}:${DIR_FILTROS}:${LD_LIBRARY_PATH}
+
+#chama a aplicação
+# formato: ./<nome binário>  <nome deste arquivo>
+
+if [ "$DEBUG" = 1 ]; then
+        echo -e "break main.c:19\n run $*\n" > start.gdb
+        export DISPLAY=$DISPLAY
+        ${DEBUGGER} ${BIN} -x start.gdb
+else
+        ./${BIN} $@
+fi
+\end{verbatim}
+\end{framed}
+
+
+\subsection{Conf.xml}
+\label{sec:confxml}
+Nesta seção, descrevemos os detalhes do arquivo de configuração
+dos filtros. Estes são apresentados nas três seções abaixo, ({\it hostdec, 
+placement e layout}), que corresponde às três parte principais do arquivo
+de configuração.
+
+\subsubsection{{\it HostDec}}
+\label{sec:hostdec}
+No {\it hostdec} declara-se todas máquinas disponíveis
+para execuação da aplicação, também podemos, nesta seção, associar a cada {\it host}
+recursos e quantidade de memória. Isso facilita a vida do desenvolvedor,
+pois o mesmos não nem precisa saber em quais máquinas a aplicação está
+sendo executada, além disso, é possivel associar recursos a uma máquina
+e no {\it placement} o programador informa que determinado filtro depende
+daquele recurso, portanto deve rodar no local no qual o mesmo está disponivel.
+Temos a seguir um exemplo simples de {\it hostdec}:
+
+\begin{framed}
+\begin{verbatim}
+<hostdec>
+        <host name="atlas" mem="512M"/>
+                <resource name="servidorY" />
+        <host name="orfeu">
+                <resource name="discao" />
+        </host>
+</hostdec>
+\end{verbatim}
+\end{framed}
+
+No exemplo acima declaramos duas máquinas, atlas e orfeu, sendo que a uma
+delas atribuimos uma memória de 512M e a outra um recurso ``discao".
+Essas caracteristicas são usadas no {\it placement}.
+
+\subsubsection{{\it Placement}}
+\label{sec:placement}
+
+No {\it placement} são definidos os nomes e a quantidade de 
+instâncias de cada tipo de filtro, além dos recursos demandados por 
+cada instância, como pode-se ver no exemplo abaixo:
+
+\begin{framed}
+\begin{verbatim}
+<placement>
+        <filter name="filterA" instances="3"> 
+                <instance demands="discao"/>
+                <instance demands="servidorY" numinstances="2"/>
+
+        </filter>
+        <filter name="filterB"/> 
+</placement>
+\end{verbatim}
+\end{framed}
+
+No caso do ``filtroB", não declaramos a quantas instâncias serão 
+executadas, desse modo, pelo padrão definido, será executada apenas uma
+instância. Também deve ser executada uma instância do ``filtroA" na máquina
+que tenha o recurso ``discao" e duas outras ``no servidorY".
+
+\subsubsection{{\it Layout}}
+\label{sec:layout}
+
+Nessa parte, do arquivo de configuração, definimos os {\it streams} que devem
+ser criados entre os filtros e as politicas de cominicação desses {\it streams}. 
+Atualmente as politicas diponíveis são:
+
+\begin{itemize}
+	\item {\it random};
+	\item {\it labeled\_stream};
+	\item {\it broadcast};
+	\item {\it round\_robin};
+\end{itemize}
+
+Na {\it labeled\_stream},a única política não é conheciada, o filtro para 
+o qual a mensagem deve ser enviada é definido em função de um {\it label} que 
+o usuário inserte na mensagem, sendo que esse label pode até mesmo ser vazio ou
+estar inserido no corpo da mensagem. Para tanto, o usuário, define uma função
+{\it hash} que deve, utilizando o {\it label}, retornar um valor 
+inteiro, que por sua vez é mapeado no número de filtros existentes, através
+de um módulo
+
+\begin{framed}
+\begin{verbatim}
+<layout>
+      <stream>
+          <from filter="filterA" port="output" policy="broadcast"/>
+          <to filter="filterB" port="input"/>
+      </stream>
+      <stream>
+          <from filter="filterB" port="output1" policy="broadcast"/>
+          <to filter="filterA" port="input1"/>
+      </stream>
+</layout>
+\end{verbatim}
+\end{framed}
+
+\subsubsection{Exemplo de conf.xml}
+\label{sec:confsample}
+
+\begin{framed}
+\begin{verbatim}
+<?xml version="1.0"?>
+<!--Void configuration file-->
+<config>
+
+        <hostdec>
+                <host name="atlas" mem="512M"/>
+                <host name="orfeu">
+                        <resource name="bla" />
+                </host>
+        </hostdec>
+
+        <placement>
+                <filter name="filterA"> 
+                        <instance demands="bla"/>
+                </filter>
+                <filter name="filterB"/> 
+        </placement>
+	
+        <layout>
+                <stream>
+                        <from filter="filterA" port="output" 
+policy="broadcast"/>
+                        <to filter="filterB" port="input"/>
+                </stream>
+                <stream>
+                        <from filter="filterB" port="output1" 
+policy="broadcast"/>
+                        <to filter="filterA" port="input1"/>
+                </stream>
+         </layout>
+</config>
+
+\end{verbatim}
+\end{framed}
+
+\section{Tutorial de Programação}
+\label{sec:tutorial}
+
+Detalhamos, nesta seção, os pontos centrais para contrução de uma aplicação VOID, 
+como exemplo utilizamos o ``divP4".
+Esta aplicação pode ser visualizada através da figura~\ref{fig:divp4}, na 
+mesma o filtro ``divP4" recebe um número divide por 4, após isso envia o resto
+para o filtro ``impResto" e o quociente para o ``impQuociente", esses dois últimos filtros
+somente imprimem os valores recebidos.
+
+\begin{figure}[htbp!]
+\begin{center}
+\includegraphics[scale=0.39]{images/divp4.eps}
+\caption{DivP4}
+\label{fig:divp4}
+\end{center}
+\end{figure}
+
+\subsection{{\it Includes}}
+\label{sec:include}
+
+Todas as funções disponíveis aos usuários são acessiveis através do arquivo ``void.h".
+Portanto basta inclui-lo e compilar o VOID com mostrado na seção~\ref{sec:comp}
+
+\subsection{Criação de Filtros}
+\label{sec:filtros}
+
+A criação de filtros é feita na linguagem C disponibilizando três
+funções: {\it initFilter, processFilter e finalizeFilter}, mostramos a seguir
+essas funções para o filtro ``divP4". A cada vez que uma unidade
+de trabalho (UoW) chega essas funções são sequencialmente acionadas.
+
+\subsubsection{Inicialização}
+\label{sec:init}
+
+A função de inicialização ({\it initFilter}) é chamanda sempre que chega uma nova
+unidade de trabalho. Isso permite que os filtros solicitem recursos necessários, tais
+como pegar suas portas de comunicação, abrir arquivos, etc. O protótipo dessa função é o seguinte:
+\vspace{2mm}
+
+{\it int initFilter(FilterArg *arg)}
+\vspace{2mm}
+
+O argumento do tipo {\it FilterArg} contém um void* que aponta para o {\it work}
+e um {\it int}, onde é armazenado o tamanho desse work em {\it bytes}. A seguir
+temos o exemplo de {\it init} do filtro divP4:
+
+\begin{framed}
+\begin{verbatim}
+int initFilter(FilterArg *fa){
+       //pega os handlers de saida
+        dividendoP      = dsGetInputPortByName("dividendoP");
+        restoP          = dsGetOutputPortByName("resto");
+        quocienteP      = dsGetOutputPortByName("quociente");
+
+        return 1;
+}
+\end{verbatim}
+\end{framed}
+
+Neste exemplo apenas pegamos os {\it handlers} das portas de saída e entrada do 
+filtro. Poderimos nesse local utilizar o {\it work}, mas isso não é feito.
+
+\subsubsection{Processamento}
+\label{sec:process}
+
+Quando o filtro retorna do {\it initFilter} o {\it processFilter} é chamado 
+tendo como argumento o tendo como paramêtro o {\it FilterArg}, assim como 
+no {\it initFilter}. O protótipo dessa função é o seguinte:
+
+\vspace{2mm}
+
+{\it int processFilter(FilterArg *fa)}
+\vspace{2mm}
+
+No exemplo de {\it process} do divP4, abaixo, o filtro lê um inteiro da
+entrada dividendoP, e enquanto não recebe EOW\footnote{
+O EOW é enviado a um filtro toda vez que todos os filtros dos quais dado
+filtro lê são finalizados (retornam da função {\it finalizeFilter}).}
+({\it end of work}), envia o 
+resto pela porta restoP e o quociente na porta quocienteP. 
+
+\begin{framed}
+\begin{verbatim}
+int processFilter(FilterArg *fa){
+        int dividendo[1];
+        int divisor = 4;
+        int resto;
+        int quociente;
+
+        //le o dividendo
+        while((dsReadBuffer(dividendoP, dividendo, sizeof(int)))!=
+                EOW){
+
+                quociente = *dividendo / divisor;
+                resto = *dividendo % divisor;
+
+                //escreve pra filtro resto
+                dsWriteBuffer(restoP, &resto, sizeof(int));
+                //escreve para filtro quociente
+                dsWriteBuffer(quocienteP, &quociente, sizeof(int));
+        }
+
+        return 1;
+}
+\end{verbatim}
+\end{framed}
+
+\subsubsection{Finalização}
+\label{sec:finalize}
+
+Após a função {\it processFilter} retornar, a função {\it finalizeFilter} é chamada.
+Nesse estágio o filtro pode ser usado para desalocar memória, fechar arquivo, etc. O 
+protótipo dessa função é:
+
+\begin{framed}
+\begin{verbatim}
+int finalizeFilter(void){
+        return 1;
+}
+\end{verbatim}
+\end{framed}
+
+
+\subsection{Tolerância a Falhas}
+\label{sec:tolerancia}
+
+O modelo de tolerância a falhas do VOID3, em implementação, permite ao
+programador dividir sua aplicação em tarefas. Onde uma tarefa é 
+um evento global com início e fim bem definidos em cada 
+processador, embora execute assincronamente em cada deles. Ela pode 
+ler dados de tarefas anteriores ou gravar dados para serem usados por outras 
+tarefas. Assim a tarefa deve possuir um identificador, cuja unicidade e as 
+dependências\footnote{Dependência são relativas a tarefas, assim caso uma tarefa
+B dependa de A a mesma só pode ser executada quando B for finalizada}
+são garantidas pela aplicação. 
+
+Nesse modelo não são permitidas mensagens entre tarefas, a única forma de 
+entre uma tarefa comunicar é salvando dados em um armazenamento estável,
+para uma segunda acessar. Uma instância de um filtro pode executar várias tarefas 
+simultaneamente, desde que não exista dependência de dados entre elas. O que é feito
+em uma tarefa depende da aplicação, assim o programador pode refinar até o nível
+que desejar ou até onde seu algoritmo permita.
+
+A partir da divisão da aplicação em tarefas o VOID3 cuida para que em caso de uma 
+falha a aplicação não necessite ser totalmente executada novamente. Isso é possível
+pois a tarefa é dividida em 5 estados: 
+
+\begin{enumerate}
+	\item Quando a instância chama a função {\it createTask} a tarefa passa para o 
+	estado ``Criada", neste estado ela pode alterar seu espaço de armazenamento estável.
+
+	\item Quando a instância chama {\it endTask} o estado da tarefa passa 
+	para ``Finalizando". A partir desse estágio não é mais permitido escrever 
+	no armazenamento estável e os dados relacionados à tarefa finalizada
+	estão disponíveis para replicação.
+	
+	\item Após a o {\it endTask} o VOID analisa a existência de alguma tarefa dependente
+	da finaliza e dispara todas tarefas dependentes da finalizada que satisfizeram suas 
+	dependêcias, depois desse momento a tarefa passa para o estado ``Finalizada".
+	
+	\item O estado ``Replicada localmente" é atingido quando os dados estão 
+	localmente replicados. 
+	
+	Então as caches em conjunto com os daemons replicadores de 
+	todas as instâncias dos filtros executam um algoritmo de compromisso atômico. 
+
+	\item Depois de replicada em outras máquinas o estado da tarefa finalmente vai 
+	para ``Replicada globalmente". A partir desse momento, se houver uma falha no sistema a 
+	tarefa não precisará ser reexecutada.
+\end{enumerate}
+
+Como as tarefas só podem se comunicar a partir dos dados armazenados, criamos as seguintes
+primitivas para manipulação do espaço de armazenamento de dados, {\it get, put e remove}.
+Mais detalhes sobre o uso das funções referentes a tolerância a falhas são apresentadas
+na seção~\ref{sec:functolerancia}.
+
+\subsection{Criação da Aplicação Principal}
+\label{sec:aplication}
+
+O ``main" da aplicação, como pode ser visto no exemplo abaixo, inicia-se com
+uma chamada à função {\it initDs}. Nessa função a aplicação, caso for o gerente, 
+lê o arquivo conf.xml, descrito na seção~\ref{sec:confxml},
+inicia os filtros e envia os dados de configuração para os mesmos. Se forem 
+filtros, logicamente, os mesmos ficam aguardando os dados de configuração.
+
+
+Após essa etapa os filtros estão aptos a iniciarem seu trabalho, então a aplicação 
+principal aciona a função {\it appendWork}, que envia o work para todos os filtros, 
+fazendo com que as funções {\it initFilter, processFilter e finalizeFilter} sejam 
+chamadas.
+
+Após a execução de todos os {\it appendWork} a aplicação chama a função {\it finalizeDs}.
+Nessa função a aplicação principal avisa para os filtros que todo o trabalho foi finalizado
+e que os mesmos podem terminar sua execução. 
+
+
+\begin{framed}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
+
+#include "void.h"
+
+typedef int Work;
+
+int main (int argc, char *argv[]) {
+
+	char *confFile = "./conf.xml";
+	Work work[1];
+	work[0] = 10;
+
+        Layout *layout = initDs(confFile, argc, argv);
+
+        appendWork(layout, (void *)work, sizeof(Work));
+	
+        work[0] = 50;
+        appendWork(layout, (void *)work, sizeof(Work));
+	
+        work[0] = 25;
+        appendWork(layout, (void *)work, sizeof(Work));
+	
+        finalizeDs(layout);
+	
+	return 0;
+}
+\end{verbatim}
+\end{framed}
+
+\subsection{Compilação}
+\label{sec:comp}
+
+A baixo apresentamos um exemplo de compilação, as bibliotecas requeridas pelo VOID
+à compilação de um programa estão no mesmo.
+
+\begin{framed}
+\begin{verbatim}
+CC = gcc  -Wall -g 
+CFLAGS =-I${PVM_ROOT}/include -I../../FilterDev -I../.. -I../../Hash
+CLIBS = -L../.. -L${PVM_ROOT}/lib/LINUX -lds -lpvm3 -lexpat -ldl 
+
+target: divP4.so imp.so leNum.so main
+
+divP4.so: divP4.c
+        ${CC} ${CFLAGS} ${CLIBS} -shared -o divP4.so divP4.c 
+
+imp.so: imp.c 
+        ${CC} ${CFLAGS} ${CLIBS} -shared -o imp.so imp.c
+
+leNum.so: leNum.c
+        ${CC} ${CFLAGS} ${CLIBS} -shared -o leNum.so leNum.c
+
+main: main.c
+        ${CC} ${CFLAGS} ${CLIBS} main.c -o main
+
+clean:
+        rm -f *.o divP4.so imp.so leNum.so main
+\end{verbatim}
+\end{framed}
+
+\section{API}
+\label{sec:api}
+
+\subsection{Funções de Programação dos Filtros}
+
+\begin{itemize}
+	\item InputPortHandler dsGetInputPortByName(char *name): Função usada para 
+	pegar os handlers das portas.
+
+	\item OutputPortHandler dsGetOutputPortByName(char *name) 
+
+	\item int dsProbe(InputPortHandler ip): Verifica se existe dados na porta de
+	entrada {\it ip}. Retorna a quantidade de dados (tamanho em {\it bytes}) ou
+	0 caso não tenha nada nessa entrada.
+	
+	\item int dsReadBuffer(InputPortHandler ip, void *buf, int szBuf): Função 
+	que lê {\it szBuf bytes} da porta {\it ip} e guarda os dados em {\it buf}.
+	
+	\item int dsWriteBuffer(OutputPortHandler op, void *buf, int bufSz): Escreve 
+	{\it szBuf bytes} de buf na porta {\it op}.
+
+	\item int dsGetMachineMemory(): Retorna a quantidade de memória disponível
+	na máquina deste filtro.
+	
+	\item int dsGetLocalInstances(): Retorna o número de irmão que eu tenho + 1 (são
+	considerados irmão aqueles filtros que tem o mesmo tipo que eu). Ex: Se você tem
+	um filtro A e 2 Bs, rodando na mesma máquina, e A chama a essa função recebe 1,
+	e se B chama recebe 2.
+
+	\item int dsGetMyRank(): Retorna qual dos irmão eu sou, o retorno vai de 0 até n-1,
+	onde n é a quantidade de filtros do meu tipo.
+
+	\item int dsGetTotalInstances(): Retorna o total de instancias dos filtros desse tipo
+	(eu + meus Irmãos). 
+
+	\item int dsExit(char *mesg): Mata todos os filtros e finaliza o VOID, o usuário
+	chama esta função para terminar o sistema anormalmente.
+\end{itemize}
+
+\subsection{Funções de Programação da Aplicação Principal}
+
+\begin{itemize}
+	\item Layout *initDs(char *confFile, int argc, char **argv): Lê o arquivo de configuração
+	do {\it pipeline}, descrito na seção~\ref{sec:confxml}, inicia os filtros e envia os dados 
+	de configuração para os mesmos.
+
+	\item int appendWork(Layout *layout, void *work, int workSize): que envia o work para todos 
+	os filtros, fazendo com que as funções {\it initFilter, processFilter e finalizeFilter} 
+	sejam chamadas. Somente o {\it manager} roda isto.
+
+	\item int finalizeDs(Layout *layout): Finaliza todos os filtros
+\end{itemize}
+
+\subsection{Funções de Tolerância a Falhas}
+\label{sec:functolerancia}
+
+\subsubsection{API de Tarefas}
+
+\begin{itemize}
+	\item int dsGetCurrentTask(): Retorna a tarefa que o filtro esta executando no momento.
+
+	\item int createTask(int taskId, int *deps, int depSize, char *metadata, int metaSize): Cria uma 
+	tarefa com o identificador {\it taskId}. Caso a quantidade de dependências for 0 ou se todas já
+	foram satisfeitas, envia uma mensagem para o próximo filtro do {\it pipeline} com os dados de
+	{\it metadata}.
+
+	\item int endTask(int taskId): Finaliza a tarefa com o identificador {\it taskId}. Avisa a todas
+	as tarefas que dependem da finalizada que a mesma terminou.
+\end{itemize}
+
+\subsubsection{API de dados}
+\begin{itemize}
+	\item int putData(int taskId, char *id, void *val, int valSize): Armazena os dados com 
+	identificador {\it id} da tarefa cujo identificador é {\it taskId}. Retorna 0 caso tenha
+	sucesso e um valor negativo caso contrário.
+
+	\item int getData(int taskId, char *id, void **val): Aponta o val para os dados armazenados
+	cujo identificador é {\it id} e a tarefa é {\it taskId}.
+
+	\item int removeData(int taskId, char *id): Remove os dados armazenados
+	cujo identificador é {\it id} e a tarefa é {\it taskId}. Retorna 0 caso tenha sucesso e um valor
+	negativo caso contrário.
+\end{itemize}
+
+\section{Exemplos Completos}
+\label{sec:samples}
+Apresentamos, nas duas subseções, dois exemplos completos aplicativos VOID, são eles
+o divP4 e Sample\_Print\_Task. Mais exemplos podem ser 
+encontrados na pasta {\it samples} dentro do VOID.
+
+
+\subsection{DivP4}
+\label{sec:divp4EX}
+
+Esta aplicação pode ser visualizada através da figura~\ref{fig:divp4}, na 
+mesma o filtro ``divP4" recebe um número divide por 4, após isso envia o resto
+para o filtro ``impResto" e o quociente para o ``impQuociente", esses dois últimos filtros
+somente imprimem os valores recebidos.
+Os arquivos do programa são:
+\begin{itemize}
+	\item divP4.c
+	\item imp.c
+	\item leNum.c
+	\item main.c
+	\item initScript
+	\item Makefile
+	\item conf.xml
+\end{itemize}
+
+Abaixo temos os arquivos completos:
+
+{\LARGE divP4.c}
+
+\begin{framed}
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include <void.h>
+
+InputPortHandler dividendoP;
+OutputPortHandler restoP;
+OutputPortHandler quocienteP;
+
+int initFilter(FilterArg *fa){
+   //pega os handlers de saida
+   dividendoP    = dsGetInputPortByName("dividendoP");
+   restoP       = dsGetOutputPortByName("resto");
+   quocienteP    = dsGetOutputPortByName("quociente");
+
+   return 1;
+
+}
+
+int processFilter(FilterArg *fa){
+   int dividendo[1];
+   int divisor = 4;
+   int resto;
+   int quociente;
+ 
+   //le o dividendo
+   while ((dsReadBuffer(dividendoP,dividendo,sizeof(int)))!=EOW){
+      quociente = *dividendo / divisor;
+      resto = *dividendo % divisor;
+
+      //escreve pra filtro resto
+      dsWriteBuffer(restoP, &resto, sizeof(int));
+      //escreve para filtro quociente
+      dsWriteBuffer(quocienteP, &quociente, sizeof(int));
+   }
+
+   return 1;
+}
+
+int finalizeFilter(void){
+   return 1;
+}
+\end{verbatim}
+\end{framed}
+
+
+{\LARGE imp.c}
+\begin{framed}
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include "FilterDev.h"
+
+InputPortHandler entradaP;
+
+int valor[1];
+
+int initFilter(FilterArg *fa){
+   //pega os handlers de saida
+   entradaP    = dsGetInputPortByName("entrada");
+
+   return 1;
+}
+
+int processFilter(FilterArg *fa){
+
+   while (dsReadBuffer(entradaP, valor, sizeof(int)) != EOW) {
+      printf("Imprimindo: %d\n", *valor);
+   }
+
+   return 1;
+}
+
+int finalizeFilter(void){
+
+
+   return 1;
+}
+\end{verbatim}
+\end{framed}
+
+{\LARGE leNum.c}
+
+\begin{framed}
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "FilterDev.h"
+#include "FilterArg.h"
+
+OutputPortHandler numP;
+
+int initFilter(FilterArg *fa){
+   
+   //pega os handlers de saida
+   numP    = dsGetOutputPortByName("saida");
+   
+   return 1;
+}
+
+int processFilter(FilterArg *fa){
+
+   //le o dividendo
+   int num_jobs = ((int *)getFAWork(fa))[0];
+
+   dsWriteBuffer(numP, &num_jobs, sizeof(int));
+
+   return 1;
+}
+
+int finalizeFilter(void){
+   printf("Fim leNum PNC geral\n");
+
+   return 1;
+}
+\end{verbatim}
+\end{framed}
+
+{\LARGE main.c}
+
+\begin{framed}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
+
+#include "void.h"
+
+typedef int Work;
+
+
+int main (int argc, char *argv[]) {
+
+   char *confFile = "./conf.xml";
+   Work work[1];
+   work[0] = 10;
+
+   Layout *layout = initDs(confFile, argc, argv);
+   appendWork(layout, (void *)work, sizeof(Work));
+   work[0] = 50;
+   appendWork(layout, (void *)work, sizeof(Work));
+   work[0] = 25;
+   appendWork(layout, (void *)work, sizeof(Work));
+   finalizeDs(layout);
+   return 0;
+}
+\end{verbatim}
+\end{framed}
+
+{\LARGE initScript}
+\begin{framed}
+\begin{verbatim}
+#!/bin/bash
+
+#Directory do programa
+DIR_PROG="/home/speed/george/void3/samples/divP4"
+
+# Coloque aqui o directory contendo as bibliotecas do VOID
+#e dos filtros
+DIR_VOID=./../../
+DIR_FILTROS=./
+
+DISPLAY=eirene:0
+
+# se quiser depurar descomente
+#if [ `hostname` = "eirene" ] 
+#then
+#   DEBUG=1
+#fi
+
+# nome do binario do console
+BIN="main"
+DEBUGGER="ddd"
+####################################################################
+cd ${DIR_PROG}
+export LD_LIBRARY_PATH=${DIR_VOID}:${DIR_FILTROS}:${LD_LIBRARY_PATH}
+
+#chama a aplicacao
+# formato: ./<nome binario>  <nome deste arquivo>
+if [ "$DEBUG" = 1 ]; then
+   echo -e "break main.c:19\n run $*\n" > start.gdb
+   export DISPLAY=$DISPLAY
+   ${DEBUGGER} ${BIN} -x start.gdb
+else
+   ./${BIN} $@
+fi
+\end{verbatim}
+\end{framed}
+
+{\LARGE Makefile}
+\begin{framed}
+\begin{verbatim}
+CC = gcc  -Wall -g 
+CFLAGS =-I${PVM_ROOT}/include -I../../FilterDev -I../.. -I../../Hash
+CLIBS = -L../.. -L${PVM_ROOT}/lib/LINUX -lds -lpvm3 -lexpat -ldl 
+
+target: divP4.so imp.so leNum.so main
+
+divP4.so: divP4.c
+   ${CC} ${CFLAGS} ${CLIBS} -shared -o divP4.so divP4.c 
+
+imp.so: imp.c 
+   ${CC} ${CFLAGS} ${CLIBS} -shared -o imp.so imp.c
+
+leNum.so: leNum.c
+   ${CC} ${CFLAGS} ${CLIBS} -shared -o leNum.so leNum.c
+
+main: main.c
+   ${CC} ${CFLAGS} ${CLIBS} main.c -o main
+
+clean:
+   rm -f *.o divP4.so imp.so leNum.so main
+\end{verbatim}
+\end{framed}
+
+{\LARGE conf.xml}
+\begin{framed}
+\begin{verbatim}
+config>
+<hostdec>
+   <host name="eirene" mem="512M">
+      <resource name="bla" />
+   </host>
+   <host name="orfeu"/>
+
+</hostdec>
+<placement>
+   <filter name="leNum" libname="leNum.so" instances="1">
+      <instance demands="bla"/>
+   </filter>
+   <filter name="divP4" libname="divP4.so">
+   </filter>
+   <filter name="impResto" libname="imp.so" />
+   <filter name="impQuociente" libname="imp.so"/>
+</placement>
+<layout>
+   <stream>
+      <from filter="leNum" port="saida"  />
+      <to filter="divP4" port="dividendoP"  />
+   </stream>
+   <stream>
+      <from filter="divP4" port="resto"  />
+      <to filter="impResto" port="entrada"  />
+   </stream>
+   <stream>
+      <from filter="divP4" port="quociente"  />
+      <to filter="impQuociente" port="entrada"  />
+   </stream>
+</layout>
+</config>
+\end{verbatim}
+\end{framed}
+
+
+\subsection{Sample\_Print\_Task}
+\label{sec:sampletask}
+
+Este exemplo tem dois filtros: {\it filterA} e {filterB}. O filtro
+{\it filterA} cria tarefas, guarda dados dessas a tarefa é repassada
+para o filtro {\it filterB}. O segundo recebe a mensagem da tarefa
+criada e envia essa mensagem de volta para o filtro {\it filterA}.
+Os arquivos do prorama são:
+
+\begin{itemize}
+	\item filterA.c
+	\item filterB.c
+	\item main.c
+	\item initScript
+	\item Makefile
+	\item conf.xml
+\end{itemize}
+
+Os arquivos estão abaixo:
+
+{\LARGE filterA.c}
+
+\begin{framed}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "filterA.h"
+
+#define VAL_SIZE 10
+
+OutputPortHandler output;
+InputPortHandler input;
+
+int *numToPrint;
+
+int initFilter(FilterArg *arg) {
+   // Pega o Work 
+   numToPrint = (int *) getFAWork(arg);
+
+   // Imprime para a saida de erro
+   fprintf(stderr, "Inicializing filter A\n");
+
+   // Pega porta de saida para o FiltroB
+   output = dsGetOutputPortByName("output");
+
+   // Pega porta de entra que vem do FiltroB
+   input = dsGetInputPortByName("input1");
+   
+   return 0;
+}
+
+int processFilter(FilterArg *arg) {
+   // numToPrint: variavel que contem o work
+   int taskId = numToPrint[0] +1;
+   int oldTaskId;
+
+   // alocando espaco para as mensagens que receberei
+   int *mesg = (int *) malloc(sizeof(int));
+   
+   // Usado para identificar os dados salvos
+   char id[] = "identificador\0";
+   char val[VAL_SIZE] = "\0";
+   
+   // Variavel auxiliar usada para receber dados salvos
+   char *valGet = NULL;
+   
+   int currentTask;
+   int tmp, i;
+
+   fprintf(stderr, "Processing filter A\n");
+
+   //cria a primeira tarefa e envida numToPrint para o proximo filtro
+   // no pipeline
+   createTask(taskId, NULL, 0, (char *)numToPrint, sizeof(int));
+   oldTaskId = taskId;
+   taskId++;
+
+   
+   for(i = 0; i < 9; i++){
+      sprintf(val, "val%d\n", oldTaskId);
+      
+      // guarda dados da ultima tarefa criada
+      putData(oldTaskId, id, val, VAL_SIZE);
+
+      // cria tarefa que depende da tarefa criada anteriormente. 
+      // A mensagem com a criacao dessa tarefa soh eh gerada apos 
+      // o termino da anterior
+      createTask(taskId, &oldTaskId, 1, (char *)numToPrint, sizeof(int));
+      oldTaskId = taskId;
+      taskId++;
+   }
+
+   // recebe a resposta da primeira tarefa criada
+   tmp = dsReadBuffer(input, mesg, sizeof(int));
+   // imprime a tarefa corrente
+   currentTask = dsGetCurrentTask();
+   fprintf(stderr, "CurrentTask =  %d \n", currentTask);
+   // finaliza tarefa corrente
+   endTask(currentTask);
+
+   for(i = 0; i < 9; i++){
+      // recebe reposta de uma dada tarefa 
+      tmp = dsReadBuffer(input, mesg, sizeof(int));
+      currentTask = dsGetCurrentTask();
+
+      // pega dado com identificador id da tarefa anterior
+      getData((currentTask -1), id,(void **) &valGet);
+      removeData((currentTask -1), id);
+
+      fprintf(stderr, "CurrentTask =  %d ValGet = %s\n", 
+      currentTask, (char *)valGet);
+      // finaliza tarefa corrente
+      endTask(currentTask);
+   }
+   
+   return 0;
+}
+
+int finalizeFilter() {
+   int *mesg = (int *) malloc(sizeof(int));
+
+   // Espera o EOW proveniente do filtroA. 
+   if(dsReadBuffer(input, mesg, sizeof(int)) == EOW){
+      fprintf(stderr, "stoping filter A. EOW received\n");
+   }
+
+   return 0;
+}
+\end{verbatim}
+\end{framed}
+
+{\LARGE filterB.c}
+
+\begin{framed}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include "filterB.h"
+#include <unistd.h>
+
+InputPortHandler input;
+OutputPortHandler output;
+
+int initFilter(FilterArg *arg) {
+   printf("Inicializing filter B\n");
+
+   // Pega porta de entrada do filtroA
+   input = dsGetInputPortByName("input");
+
+   // Pega porta de saida para o filtroA
+   output = dsGetOutputPortByName("output1");
+   
+   return 0;
+}
+
+int processFilter(FilterArg *arg) {   
+   int *mesg = (int *) malloc(sizeof(int));
+   int tmp, i;
+
+   // loop esperando as dez tarefas criada no filtroA
+   for(i = 0; i <10; i++){
+      printf("Processing filter B\n");
+
+      // recebe mesg enviada por A
+      tmp = dsReadBuffer(input, mesg, sizeof(int));
+
+      // Envia mensagem recebida de volta para filtroA
+      dsWriteBuffer(output, (void *)mesg, sizeof(int));
+
+   }
+
+   // Recebe EOW do filtroA
+   tmp = dsReadBuffer(input, mesg, sizeof(int));
+
+   return 0;
+}
+
+int finalizeFilter() {
+
+   printf("Stopping filter B\n");
+
+   return 0;
+}
+\end{verbatim}
+\end{framed}
+
+{\LARGE main.c}
+
+\begin{framed}
+\begin{verbatim}
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
+
+#include "Manager.h"
+#include "FilterArg.h"
+
+typedef int Work;
+
+
+int main (int argc, char *argv[]) {
+   char confFile[] = "./conf.xml";
+   int num_appends = 3;
+   int i;
+
+   // work que é enfiado aos filtros
+   Work work = 0;
+
+   // inicia o VOID
+   Layout *systemLayout = initDs(confFile, argc, argv);
+
+   for(i = 0 ; i < num_appends; i++){
+      appendWork(systemLayout, &work, sizeof(Work));
+      work++;
+   }
+   // finaliza o VOID
+   finalizeDs(systemLayout);
+   return 0;
+}
+\end{verbatim}
+\end{framed}
+
+{\LARGE initScript}
+
+\begin{framed}
+\begin{verbatim}
+!/bin/bash
+
+#Directory do programa
+DIR_PROG="/home/speed/george/void3/samples/sample_print_task"
+
+# Coloque aqui o directory contendo as bibliotecas do VOID
+#e dos filtros
+DIR_VOID=../../
+DIR_FILTROS=./
+
+DISPLAY=eirene:0
+
+# se quiser depurar descomente
+#if [ `hostname` = "eirene" ] 
+#then
+#   DEBUG=1
+#fi
+
+# nome do binario do console
+BIN="main"
+DEBUGGER="ddd"
+####################################################################
+cd ${DIR_PROG}
+export LD_LIBRARY_PATH=${DIR_VOID}:${DIR_FILTROS}:${LD_LIBRARY_PATH}
+
+#chama a aplicacao
+# formato: ./<nome binario>  <nome deste arquivo>
+if [ "$DEBUG" = 1 ]; then
+   echo -e "break main.c:19\n run $*\n" > start.gdb
+   export DISPLAY=$DISPLAY
+   ${DEBUGGER} ${BIN} -x start.gdb
+else
+   ./${BIN} $@
+fi
+\end{verbatim}
+\end{framed}
+
+{\LARGE Makefile}
+
+\begin{framed}
+\begin{verbatim}
+CC = gcc  -Wall -g
+CFLAGS = -I../../FilterDev/ -I../../ -I../../Hash
+CLIBS = -lgpvm3 -lpvm3 -lexpat -ldl -L. -lds -lefence
+
+target: main libfilterA.so libfilterB.so
+
+filterB.o : filterB.c
+        ${CC} ${CFLAGS} ${INCL} -c filterB.c
+
+libfilterB.so : filterB.o
+        ${CC} ${CLIBS} -shared filterB.o -o libfilterB.so
+
+filterA.o : filterA.c
+        ${CC} ${CFLAGS} ${INCL} -c filterA.c
+
+libfilterA.so : filterA.o
+        ${CC} ${CLIBS} -shared filterA.o -o libfilterA.so
+
+main.o : main.c libfilterA.so libfilterB.so
+        ${CC} ${CFLAGS} ${INCL} -I../../ -c main.c
+
+main : main.o
+        ${CC} ${CLIBS} main.o -o main
+\end{verbatim}
+\end{framed}
+
+{\LARGE conf.xml}
+
+\begin{framed}
+\begin{verbatim}
+<?xml version="1.0"?>
+<config>
+<hostdec>
+   <!-- host name="atlas" mem="512M"/-->
+   <host name="orfeu"/>
+</hostdec>
+
+   <placement>
+      <filter name="filterA"> 
+      </filter>
+      <filter name="filterB"> 
+      </filter>
+   </placement>
+   <layout>
+      <stream>
+         <from filter="filterA" port="output" policy="broadcast"/>
+         <to filter="filterB" port="input"/>
+      </stream>
+      <stream>
+         <from filter="filterB" port="output1" policy="broadcast"/>
+         <to filter="filterA" port="input1"/>
+      </stream>
+
+   </layout>
+</config>
+\end{verbatim}
+\end{framed}
+
+\end{document}

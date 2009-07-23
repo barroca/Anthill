@@ -1,0 +1,19 @@
+<!-- conf.xml sample file -->
+<config>
+<hostdec>
+	<!--host name="dc06" /-->
+	<host name="orfeu" />
+</hostdec>
+<placement>
+	<filter name="rn" libname="rn.so" instances="1" />
+	<filter name="pt" libname="print.so" instances="4" />
+</placement>
+<layout>
+	<stream>
+		<!--from filter="rn" port="numberOutput" policy="broadcast"/-->
+		<from filter="rn" port="numberOutput" policy="mls" policylib="mls_label.so" />
+		<to filter="pt" port="incoming" />
+	</stream>
+
+</layout>
+</config>

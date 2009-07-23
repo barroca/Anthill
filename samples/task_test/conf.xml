@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--anthill configuration file-->
+<config>
+<hostdec>
+	<host name="tetis" />
+</hostdec>
+        <placement>
+		<filter name="counter" instances="2"/> 
+		<filter name="adder"/> 
+	</placement>
+	<layout>
+		<stream>
+			<from filter="counter" port="localCounts"/>
+			<to filter="adder" port="localCounts"/>
+		</stream>
+		<stream>
+			<from filter="adder" port="globalCounts" policy="broadcast"/>
+			<to filter="counter" port="globalCounts"/>
+		</stream>	
+	</layout>
+</config>

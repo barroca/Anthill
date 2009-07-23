@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--anthill configuration file-->
+<config>
+<hostdec>
+	<host name="orfeu" />
+</hostdec>
+        <placement>
+		<filter name="filterA"/> 
+		<filter name="filterB"/> 
+	</placement>
+	<layout>
+		<stream>
+			<from filter="filterA" port="output"/>
+			<to filter="filterB" port="input"/>
+		</stream>
+	</layout>
+</config>

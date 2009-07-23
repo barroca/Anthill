@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<request xmlns="projectmobius.org/1/Message" type="SubmitXMLRequest">
+  <MobiusHeader xmlns="projectmobius.org/1/Header" messageType="request">
+    <requestors>
+      <serviceIdentifier xmlns="" serviceId="MobiusClient" />
+    </requestors>
+    <responders />
+  </MobiusHeader>
+  <SubmitXMLRequest collection="%s">%s</SubmitXMLRequest>
+</request>

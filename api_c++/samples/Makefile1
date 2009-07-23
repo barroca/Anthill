@@ -1,0 +1,25 @@
+CC = g++ -g -Wall
+CFLAGS = -Wno-deprecated -I./api_c++/ -I${HOME}/void/void_3.1 -I${PVM_ROOT}/include -I${HOME}/void/void_3.1/FilterDev -I${HOME}/void/void_3.1/Hash
+CLIBS =  -L${HOME}/void/void_3.1/ -lds
+CLIBSDIR =
+
+APILIBNAME = filtroA.so
+
+all: filtroA.o main.o
+	${CC} ${CFLAGS} ${CLIBS} -fPIC -shared filtroA.o api_cpp.o -o ${APILIBNAME} 
+
+filtroA.o: filtroA.cpp filtroA.h
+	${CC} ${CFLAGS} -c filtroA.cpp
+#filtroA.o: filtroA.cpp filtroA.h
+#	${CC} ${CFLAGS} filtroA.cpp -o main
+
+
+main : main.cpp
+	g++ -g -Wall ${CFLAGS} api_cpp.o main.cpp -o main
+
+
+main.o : main.c
+	gcc -g -Wall ${CFLAGS} ${CLIBS} -I../../ main.c -o main
+
+clean:
+	rm -f  filtroA.so main 

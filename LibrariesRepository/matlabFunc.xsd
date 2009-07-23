@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="matlabLib.org/1/matlabLib" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mako="projectmobius.org/1/mako" xmlns:matlab="matlabLib.org/1/matlabLib" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<!-- Definition of matlab functions -->
+	<xsd:element name="MatlabFunction">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="numinputs" type="xsd:positiveInteger"/>
+				<xsd:element name="numoutputs" type="xsd:positiveInteger"/>
+				<xsd:element name="numinputoutpus" type="xsd:positiveInteger"/>
+				<xsd:element ref="ArgIn" maxOccurs="unbounded"/>
+				<xsd:element ref="ArgOut" maxOccurs="unbounded"/>
+				<xsd:element ref="ArgInOut" maxOccurs="unbounded"/>
+			</xsd:sequence>		
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Definition of input arguments -->
+	<xsd:element name="ArgIn">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="argtype" type="xsd:string" />
+				<xsd:element name="inputtype" type="xsd:string" />
+				<xsd:element name="paramOrder" type="xsd:positiveInteger" />
+				<xsd:element ref="DeserializeFunction" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Definition of output arguments -->
+	<xsd:element name="ArgOut">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="argtype" type="xsd:string" />
+				<xsd:element name="paramOrder" type="xsd:positiveInteger" />
+				<xsd:element ref="SerializeFunction" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Definition of input and output arguments -->
+	<xsd:element name="ArgInOut">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ArgIn"/>
+				<xsd:element ref="ArgOut"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Definition of deserialize functions -->
+	<xsd:element name="DeserializeFunction">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="libName" type="xsd:string"/>
+			</xsd:sequence>		
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Definition of serialize functions -->
+	<xsd:element name="SerializeFunction">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="libName" type="xsd:string"/>
+			</xsd:sequence>		
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!-- Definition of MatLab libraries -->
+	<xsd:element name="MatLabLibrary">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="MatlabFunction" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="SerializeFunction" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="DeserializeFunction" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="mako:AttachmentReference"/> 
+			</xsd:sequence>		
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

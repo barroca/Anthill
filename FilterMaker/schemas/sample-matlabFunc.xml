@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MatLabLibrary name="matlib" xmlns="matlabLib.org/1/matlabLib">
+	<MatlabFunction name="func2">
+		<libName>userLib.so</libName>
+		<numinputs>2</numinputs>
+		<numoutputs>1</numoutputs>
+		<numinputoutpus>1</numinputoutpus>
+		
+		<ArgIn>
+			<argtype>string</argtype>
+			<inputtype>msg</inputtype>
+			<paramOrder>1</paramOrder>
+			<DeserializeFunction name='bla'>
+				<libName>bla.so</libName>
+			</DeserializeFunction>
+		</ArgIn>
+		<ArgIn>
+			<argtype>string</argtype>
+			<inputtype>user</inputtype>
+			<paramOrder>5</paramOrder>
+			<DeserializeFunction name='bla2'>
+				<libName>bla2.so</libName>
+			</DeserializeFunction>
+		</ArgIn>
+		
+		<ArgOut>
+			<argtype>string</argtype>
+			<paramOrder>2</paramOrder>
+			<SerializeFunction name='bla1'>
+			</SerializeFunction>
+		</ArgOut>
+		
+		<ArgInOut>
+			<ArgIn>
+				<argtype>string</argtype>
+				<inputtype>msg</inputtype>
+				<paramOrder>3</paramOrder>
+				<DeserializeFunction name='bla'>
+					<libName>bla.so</libName>
+				</DeserializeFunction>
+			</ArgIn>
+			<ArgOut>
+				<argtype>string</argtype>
+				<paramOrder>4</paramOrder>
+				<SerializeFunction name='bla1'>
+				</SerializeFunction>
+			</ArgOut>
+		</ArgInOut>
+	</MatlabFunction>
+
+	<SerializeFunction name='bla1'>
+		<libName>bla1.so</libName>
+	</SerializeFunction>
+</MatLabLibrary>

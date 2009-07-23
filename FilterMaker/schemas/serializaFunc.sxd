@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="serializeFunc.org/1/serializeFunc" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mako="projectmobius.org/1/mako" xmlns:szf="serializeFunc.org/1/serializeFunc" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="SerializeFunction">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="name" type="xsd:string"/>
+				<xsd:element name="libName" type="xsd:string"/>
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<config>
+	<hostdec>
+		<host name="crystal1">
+			<resource name="_1_"/>
+		</host>
+		<host name="crystal2">
+			<resource name="_2_"/>
+		</host>
+		<host name="crystal3">
+			<resource name="_3_"/>
+		</host>
+		<host name="crystal4">
+			<resource name="_4_"/>
+		</host>
+		<host name="crystal6">
+			<resource name="_6_"/>
+		</host>
+		<host name="crystal7">
+			<resource name="_7_"/>
+		</host>
+		<host name="crystal8">
+			<resource name="_8_"/>
+		</host>
+		<host name="crystal9">
+			<resource name="_9_"/>
+		</host>
+		<host name="crystal10">
+			<resource name="_10_"/>
+		</host>
+		<host name="crystal12">
+			<resource name="_12_"/>
+		</host>
+		<host name="crystal13">
+			<resource name="_13_"/>
+		</host>
+	</hostdec>
+	<placement>
+		<filter name="reader" libname="reader.so" instances="1"> 
+			<instance demands="_1_"/>
+		</filter>
+
+      		<filter name="classifier" libname="classifier.so" instances="10">
+			<instance demands="_2_"/>
+			<instance demands="_3_"/>
+			<instance demands="_4_"/>
+			<instance demands="_6_"/>
+			<instance demands="_7_"/>
+			<instance demands="_8_"/>
+			<instance demands="_9_"/>
+			<instance demands="_10_"/>
+			<instance demands="_12_"/>
+			<instance demands="_13_"/>
+		</filter>
+      		<filter name="merger" libname="merger.so" instances="1">
+			<instance demands="_1_"/>
+		</filter>
+	</placement>
+	<layout>
+   		<stream>
+			<from filter="reader" port="trainning_to_class"/>
+			<to filter="classifier" port="trainning_from_reader" policy="rr"/>
+	      </stream>
+	      <stream>
+			<from filter="reader" port="classifier_to_class"/>
+			<to filter="classifier" port="classifier_from_reader" policy="broadcast"/>
+	      </stream>
+	      <stream>
+			<from filter="classifier" port="classifier_to_merger"/>
+			<to filter="merger" port="classifier_from_classifier" policy="broadcast"/>
+		</stream>       
+	</layout> 
+
+</config>

@@ -1,0 +1,16 @@
+#!/bin/bash -x
+
+# program directory(absolute path)
+DIR_PROG=${HOME}/void/void_3.1/FilterMaker/sample
+
+# Void directory
+DIR_DS=${HOME}/void/void_3.1/
+
+# configure xml file name
+XML="conf.xml"
+
+# Generates filters code
+${DIR_DS}/filtermaker ${XML} ${DIR_PROG}
+make clean;make
+
+./initScript $@

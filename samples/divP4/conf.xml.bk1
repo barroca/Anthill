@@ -1,0 +1,12 @@
+<config>
+<hostdec>
+	<host name="dc06.bmi.ohio-state.edu" mem="512M">
+		<resource name="bla" />
+	</host>
+</hostdec>
+<placement>
+	<filter name="divP4" libname="divP4.so" attach="yes"/>
+</placement>
+<layout>
+</layout>
+</config>

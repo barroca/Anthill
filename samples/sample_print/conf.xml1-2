@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--datasucker configuration file-->
+<config>
+	<hostdec>
+		<host name="dc06.bmi.ohio-state.edu">
+			<resource name="base1"/>
+		</host>
+		<host name="clyde">
+			<resource name="base2"/>
+		</host>	
+	</hostdec>
+	<placement>
+		<filter name="filterA" instances="1"> 
+			<instance demands="base1"/>
+		</filter>	
+		<filter name="filterB" instances="2"> 
+			<instance demands="base2"/>
+			<instance demands="base1"/>
+		</filter>
+	</placement>
+	<layout>
+		<stream>
+			<from filter="filterA" port="output" policy="broadcast" />
+			<to filter="filterB" port="input"/>
+		</stream>
+	</layout>
+</config>

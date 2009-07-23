@@ -1,0 +1,141 @@
+#include "reader.h"
+
+/*void reader::sendDB(char *dbName, streamOutputHandler outPut){
+//	char line[NUM_ATTR+10];
+	char line[NUM_LINES][NUM_ATTR+10];
+	int *mesg[NUM_LINES];
+	int i, occurredAttributes, lineSize;
+//	int *mesg = NULL;
+	FILE *inFile = fopen(dbName, "r");
+	int totalSize = 0;
+	if(inFile == NULL){
+		printf("Could not open file %s\n", DB_NAME);	
+		exit(1);
+	}
+
+	for(i = 0; i < NUM_LINES; i++){
+		occurredAttributes = 0;
+		fgets(line[i], NUM_ATTR+10, inFile);
+		line[i][NUM_ATTR] = '\0';
+#ifdef APP_DEBUG
+		cout << line[i]<<endl;
+#endif
+		lineSize = strlen(line[i]);
+
+		for(int j = 0; j < lineSize; j++){
+			if(line[i][j] == '1'){
+				occurredAttributes++;
+			}
+		}
+		totalSize += occurredAttributes + 2;
+		// 2 => 
+		//      1 -> to the transaction number
+		//      2 -> to the number of items 
+		mesg[i] = (int *) malloc(sizeof(int) * (occurredAttributes + 2));
+	
+		mesg[i][0] = i;
+		mesg[i][1] = occurredAttributes;
+		occurredAttributes = 0;
+#ifdef APP_DEBUG		
+		cout << "READER"<<endl;
+#endif
+		for(int j = 0; j < lineSize; j++){
+			if(line[i][j] == '1'){
+				mesg[i][occurredAttributes+2] = j;
+#ifdef APP_DEBUG				
+				cout << mesg[i][occurredAttributes+2];
+#endif				
+				occurredAttributes++;
+			}
+		}
+#ifdef APP_DEBUG		
+		cout <<endl;
+#endif		
+
+	}
+	printf("total = %d\n", totalSize);
+	AHEvent *event = new AHEvent(mesg, sizeof(int) * (occurredAttributes + 2), outPut);
+	dispachEvent(event);
+
+}*/
+
+void reader::sendDB(char *dbName, streamOutputHandler outPut){
+	char **line = (char **)malloc(sizeof(char *)*NUM_LINES);
+	for(int i =0; i < NUM_LINES; i++){
+		line[i] = (char*)malloc(sizeof(char )*NUM_ATTR+10 );
+	}
+	int **mesg = (int **)malloc(sizeof(int*)*NUM_LINES);
+
+	int i, occurredAttributes, lineSize;
+//	printf("ei\n");
+//	fflush(stdout);
+	FILE *inFile = fopen(dbName, "r");
+	int totalSize = 0;
+	if(inFile == NULL){
+		printf("Could not open file %s\n", DB_NAME);	
+		exit(1);
+	}
+
+	for(i = 0; i < NUM_LINES; i++){
+		occurredAttributes = 0;
+		fgets(line[i], NUM_ATTR+10, inFile);
+		line[i][NUM_ATTR] = '\0';
+#ifdef APP_DEBUG
+		cout << line[i]<<endl;
+#endif
+		lineSize = strlen(line[i]);
+
+		for(int j = 0; j < lineSize; j++){
+			if(line[i][j] == '1'){
+				occurredAttributes++;
+			}
+		}
+		totalSize += occurredAttributes + 2;
+		// 2 => 
+		//      1 -> to the transaction number
+		//      2 -> to the number of items 
+		mesg[i] = (int *) malloc(sizeof(int) * (occurredAttributes + 2));
+	
+		mesg[i][0] = i;
+		mesg[i][1] = occurredAttributes;
+		occurredAttributes = 0;
+#ifdef APP_DEBUG		
+		cout << "READER"<<endl;
+#endif
+		for(int j = 0; j < lineSize; j++){
+			if(line[i][j] == '1'){
+				mesg[i][occurredAttributes+2] = j;
+#ifdef APP_DEBUG				
+				cout << mesg[i][occurredAttributes+2];
+#endif				
+				occurredAttributes++;
+			}
+		}
+#ifdef APP_DEBUG		
+		cout <<endl;
+#endif		
+
+	}
+	int *finalMesg = (int *)malloc(sizeof(int)*(totalSize+1));
+	finalMesg[0] = NUM_LINES;
+	int finalIndex = 1;
+	for(i = 0; i < NUM_LINES; i++){
+		finalMesg[finalIndex] = i;
+		finalMesg[finalIndex+1] = mesg[i][1];
+		finalIndex+=2;
+		for(int j = 0; j < lineSize; j++){
+			if(line[i][j] == '1'){
+				finalMesg[finalIndex] = j;
+				finalIndex++;
+			}
+		}
+		free(mesg[i]);
+
+	}
+	AHEvent *event = new AHEvent(finalMesg, sizeof(int) * (totalSize+1), outPut);
+	dispachEvent(event);
+
+	printf("total = %d\n", totalSize);
+}
+
+provide(reader)

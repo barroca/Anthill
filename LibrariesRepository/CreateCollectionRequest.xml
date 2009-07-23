@@ -1,0 +1,9 @@
+<request xmlns="projectmobius.org/1/Message" type="CreateCollectionRequest">
+  <MobiusHeader xmlns="projectmobius.org/1/Header" messageType="request">
+    <requestors>
+      <serviceIdentifier xmlns="" serviceId="MobiusClient" />
+    </requestors>
+    <responders />
+  </MobiusHeader>
+  <CreateCollectionRequest collection="%s" />
+</request>

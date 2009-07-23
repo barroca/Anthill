@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+	<hostdec>
+		<host name="claudinha"/>
+	</hostdec>
+	<placement>
+		<filter name="filterA" libname="filterA.so" instances="1"/> 
+		<filter name="filterB" libname="filterB.so" instances="2"/> 
+	</placement>
+	<layout>
+		<stream>
+			<from filter="filterA" port="out"/>
+			<to filter="filterB" port="in" policy="broadcast"/>
+		</stream>
+		</layout>
+</config>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+	<hostdec>
+		<host name="clyde"/>
+	</hostdec>
+	<placement>
+		<filter name="filterA" libname="filterA.so" instances="1"/> 
+	</placement>
+	<layout>
+	</layout>
+	<matLab>
+		<matLabFilter name="filterA" matlablibname="libtest.so" firstFilter="yes">
+			<function headername="mlfTest" numoutputs="0" numinputoutpus="0" numinputs="1">
+				<argument argtype="mxArray*" inputtype="userArg" userargindex="1" deserializefunction="stringToMxArray" deserializelibname="libdeserialize.so" order="1"/>
+			</function>
+		</matLabFilter>	
+	</matLab>
+</config>

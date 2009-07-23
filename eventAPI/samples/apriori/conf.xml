@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+	<hostdec>
+		<host name="vulcan">
+			<resource name="1" />
+		</host>
+		<host name="lares">
+			<resource name="2" />
+		</host>
+
+	</hostdec>
+	<placement>
+		<filter name="reader" libname="reader.so" instances="1"> 
+			<instance demands="1"/>
+		</filter>
+		<filter name="merger" libname="merger.so" instances="1"> 
+			<instance demands="2"/>
+		</filter>	
+
+		<filter name="adder" libname="adder.so" instances="1"> 
+			<instance demands="1"/>
+		</filter>	
+		<filter name="genCandidates" libname="genCandidates.so" instances="1"> 
+			<instance demands="1"/>
+		</filter>
+	</placement>
+	<layout>
+		<stream>
+			<from filter="reader" port="outMerger"/>
+			<to filter="merger" port="inReader" policy="rr"/>
+		</stream>
+		<stream>
+			<from filter="merger" port="outAdder"/>
+			<to filter="adder" port="inMerger" policy="ls" policylib="label.so"/> 
+		</stream>
+		<stream>
+			<from filter="adder" port="outGen"/>
+			<to filter="genCandidates" port="inAdder" policy="broadcast"/>
+		</stream>
+		<stream>
+			<from filter="genCandidates" port="outMerger"/>
+			<to filter="merger" port="inGen" policy="broadcast"/>
+		</stream>
+	</layout>
+</config>

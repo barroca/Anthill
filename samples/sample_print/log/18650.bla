@@ -1,0 +1,27 @@
+./main
+LD = /home/tavares/void/void_3.1:/home/tavares/void/void_3.1/samples/sample_print:.:/home/tavares/lib:/home/tavares/java1.5/jre/lib/
+manager: pvm tid:t40177 hostname:clyde
+
+====================================
+Manager.c: start parsing the file...
+	parser.c: host dc06 added to the Void enviroment, weight 1
+	parser.c: ...
+	parser.c: reading filter filterA, library libfilterA.so, 1 instances
+		parser.c: instance dc06(chosen randomly)
+	parser.c: reading filter filterB, library libfilterB.so, 1 instances
+		parser.c: instance dc06(chosen randomly)
+	parser.c: ...
+	parser.c: filter filterA:output(broadcast) writes to filter filterB:input
+Manager.c: parser ended successfully
+====================================
+
+Manager.c: spawning filter filterA instances
+Manager.c: spawning filter filterB instances
+All process started, sending data now....
+
+Manager.c: sending filter data now
+Manager.c: starting work...
+Manager.c: EOW received from filterA, instance 0
+Manager.c: EOW received from filterB, instance 0
+Manager.c: Work ended
+

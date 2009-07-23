@@ -1,0 +1,70 @@
+
+Execution time for impResto.0
+timer_init          :          0.000014 seconds
+timer_proc          :          0.004395 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000003 seconds
+timer_void          :          0.103305 seconds
+
+Execution time for impResto.0
+timer_init          :          0.000039 seconds
+timer_proc          :          0.001913 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000003 seconds
+timer_void          :          0.079760 seconds
+
+Execution time for impResto.0
+timer_init          :          0.000013 seconds
+timer_proc          :          0.003737 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000002 seconds
+timer_void          :          0.082108 seconds
+
+Execution time for impResto.0
+timer_init          :          0.000014 seconds
+timer_proc          :          0.007420 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000003 seconds
+timer_void          :          0.205354 seconds
+
+Execution time for impResto.0
+timer_init          :          0.000010 seconds
+timer_proc          :          0.001540 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000007 seconds
+timer_void          :          0.020983 seconds
+
+Execution time for impResto.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.002866 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000006 seconds
+timer_void          :          0.021848 seconds
+
+Execution time for impResto.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.001886 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000006 seconds
+timer_void          :          0.047706 seconds

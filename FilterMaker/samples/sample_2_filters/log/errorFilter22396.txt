@@ -1,0 +1,30 @@
+libpvm [t401ba]: pvm_start_pvmd(): Duplicate host
+manager: pvm tid:t401ba hostname:clyde
+manager: pvm tid:t401ba hostname:clyde
+
+====================================
+Manager.c: start parsing the file...
+	parser.c: host clyde added to the Void enviroment, weight 1
+	parser.c: ...
+	parser.c: reading filter filterA, library filterA.so, 1 instances
+		parser.c: instance clyde(chosen randomly)
+	parser.c: reading filter filterB, library filterB.so, 1 instances
+		parser.c: instance clyde(chosen randomly)
+	parser.c: ...
+	parser.c: filter filterA:output(broadcast) writes to filter filterB:input
+Open MatLabSection:
+Open matLabFilter:MatLab: filterName = filterA and matlablibname = libUtil.so
+Open matLabFilter:MatLab: filterName = filterB and matlablibname = libUtil.so
+Manager.c: parser ended successfully
+====================================
+
+Manager.c: spawning filter filterA instances
+Manager.c: spawning filter filterB instances
+All process started, sending data now....
+
+Manager.c: sending filter data now
+Manager.c: starting work...
+Manager.c: EOW received from filterA, instance 0
+Manager.c: EOW received from filterB, instance 0
+Manager.c: Work ended
+

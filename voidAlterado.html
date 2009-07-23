@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Void Alterado</title>
+</head>
+<body>
+<span style="font-weight: bold; color: rgb(51, 102, 255);">Altera&ccedil;&otilde;es
+28/09/2006</span><br>
+Foram alterados os arquivos Ports.h, a estrutura OutPutPort para<br>
+suportar que v&aacute;rios fluxos de sa&iacute;da utilizem a mesma
+porta. struct.h<br>
+na estrutura StreamSpec para definir no stream de onde ele ir&aacute;
+vir.<br>
+Foi decido que ser&aacute; um &uacute;nico stream para o caso da
+bifurca&ccedil;&atilde;o de fluxo<br>
+<span style="font-weight: bold;"><br>
+<br>
+<span style="color: rgb(51, 102, 255);">Altera&ccedil;&otilde;es
+03/10/2006</span></span><br>
+No arquivo <span style="font-weight: bold;">parser.c</span><br>
+Para que seja poss&iacute;vel que um "<span style="font-style: italic;">from</span>"
+tenha v&aacute;rios "<span style="font-style: italic;">to</span>" foi
+decidido que a pol&iacute;tica de envio de menssagens ser&aacute;
+colocada na tag "<span style="font-style: italic;">to</span>".<br>
+O estado "<span style="font-style: italic;">tostream</span>" no qual
+antes s&oacute; podia fechar uma tag <span style="font-style: italic;">&lt;/stream&gt;,<br>
+</span><span style="font-weight: bold;"></span>agora &eacute; permitido
+abrir uma tag "<span style="font-style: italic;">to</span>" e o estado
+&eacute; setado para "<span style="font-style: italic;">fromto</span>".<br>
+Pend&ecirc;ncias: mudar os m&eacute;todos: <span
+ style="font-style: italic;">setFrom</span> e <span
+ style="font-style: italic;">setTo</span> do arquivo <span
+ style="font-style: italic;">StreamSpec.c<br>
+</span>Foi adicionado na estrutura SreamSpec um menbro que "numToSend"
+para indicar o n&uacute;mero de filtros que ir&atilde;o receber esse
+stream.<br>
+O erro "<span style="color: rgb(255, 0, 0);">Invalid Policy or labeled
+stream requires a policy lib name</span>" passa a&nbsp; poder ocorrer
+no m&eacute;todo <span style="font-style: italic;">setTo</span> ao
+inv&eacute;s do <span style="font-style: italic;">setFrom.<br>
+Fim das altera&ccedil;&otilde;es no arquivo <span
+ style="font-weight: bold;">parser.c</span>.<br>
+&nbsp;O arquivo <span style="font-weight: bold;">manager.c</span> foi
+alterado para que um stream possa ir para v&aacute;rios filtros
+dependendo da v&aacute;riavel numToSend<br>
+de cada stream. <br>
+<span style="font-weight: bold;">Obs.: </span></span><span
+ style="font-weight: bold;"></span>Lembrar de desempacotar os
+parametros do pvm do mesmo modo como eles foram empacotados.<br>
+<br>
+<span style="font-style: italic;"></span><span
+ style="font-style: italic;"></span><span style="font-weight: bold;"><span
+ style="color: rgb(51, 102, 255);">Altera&ccedil;&otilde;es
+05/10/2006<br>
+</span></span><span style="color: rgb(51, 102, 255);"><span
+ style="color: rgb(0, 0, 0);">Nos arquivos <span
+ style="font-weight: bold;">filterdata.c</span> e <span
+ style="font-weight: bold;">ports.c</span></span><br
+ style="color: rgb(0, 0, 0);">
+<span style="color: rgb(0, 0, 0);">Foi alterada a ordem de recebimento
+dos parametros passados pelo manager e foi criado um loop para</span><br
+ style="color: rgb(0, 0, 0);">
+<span style="color: rgb(0, 0, 0);">receber as informa&ccedil;&otilde;es
+de cada "to" no </span></span><span style="color: rgb(51, 102, 255);"><span
+ style="color: rgb(0, 0, 0);"><span style="font-weight: bold;">filterdata.c</span></span></span><span
+ style="color: rgb(51, 102, 255);"><span style="color: rgb(0, 0, 0);">
+e por demanda foram alterados os m&eacute;todos de <span
+ style="font-weight: bold;">ports.c</span></span><br
+ style="color: rgb(0, 0, 0);">
+<span style="color: rgb(0, 0, 0);">usados pelo <span
+ style="font-weight: bold;">filterdata.c</span> .<br>
+<br>
+<span style="color: rgb(51, 102, 255); font-weight: bold;">Altera&ccedil;&otilde;es
+13/10/2006</span><br>
+No arquivo <span style="font-weight: bold;">Termination.c</span>, foi
+alterado o m&eacute;todo<span style="font-style: italic;"> initTerminationDetection
+</span>para permitir que seja poss&iacute;vel<br>
+detectar se todos os "<span style="font-weight: bold;">to</span>" de um
+"<span style="font-weight: bold;">from</span>" j&aacute; foram enviados
+e terminados. <br>
+No arquivo <span style="font-weight: bold;">ConfMaker.c </span>foi
+alterado o m&eacute;todo <span style="font-style: italic;">generateLayout</span>
+para adequar a leitura do arquivo de configura&ccedil;&atilde;o ao novo
+xml. Est&aacute; <span style="color: rgb(255, 0, 0);">faltando</span>
+analisar nesse m&eacute;todo na linha 157 como &eacute; montado o
+arquivo de configura&ccedil;&atilde;o da cache.<br>
+<br>
+<br>
+</span></span><span style="font-weight: bold;"><span
+ style="color: rgb(51, 102, 255);"></span></span>
+</body>
+</html>

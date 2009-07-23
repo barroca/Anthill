@@ -1,0 +1,331 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2007.7.16)  27 SEP 2007 21:25
+entering extended mode
+**manual.tex
+(./manual.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(/usr/share/texmf-tetex/tex/latex/base/article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf-tetex/tex/latex/base/size12.clo
+File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-tetex/tex/latex/a4wide/a4wide.sty
+Package: a4wide 1994/08/30
+
+(/usr/share/texmf-tetex/tex/latex/ntgclass/a4.sty
+Package: a4 2004/04/15 v1.2g A4 based page layout
+))
+(/usr/share/texmf-tetex/tex/generic/babel/babel.sty
+Package: babel 2004/11/20 v3.8d The Babel package
+
+(/usr/share/texmf-tetex/tex/generic/babel/portuges.ldf
+Language: portuges 2004/02/19 v1.2p Portuguese support from the babel system
+
+(/usr/share/texmf-tetex/tex/generic/babel/babel.def
+File: babel.def 2004/11/20 v3.8d Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@brazil = a dialect from \language\l@portuges 
+Package babel Info: Making " an active character on input line 145.
+))
+(/usr/share/texmf-texlive/tex/latex/vmargin/vmargin.sty
+Package: vmargin 2004/07/15 V2.5 set document margins (VK)
+
+Package: vmargin 2004/07/15 V2.5 set document margins (VK)
+\PaperWidth=\dimen104
+\PaperHeight=\dimen105
+) (/usr/share/texmf-tetex/tex/latex/tools/indentfirst.sty
+Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
+)
+(/usr/share/texmf-tetex/tex/latex/base/inputenc.sty
+Package: inputenc 2004/02/05 v1.0d Input encoding file
+
+(/usr/share/texmf-tetex/tex/latex/base/latin1.def
+File: latin1.def 2004/02/05 v1.0d Input encoding file
+))
+
+! LaTeX Error: File `psfig.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+(/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/07/30 v2.1.4 subfigure package
+\subfigtopskip=\skip43
+\subfigcapskip=\skip44
+\subfigcaptopadj=\dimen106
+\subfigbottomskip=\skip45
+\subfigcapmargin=\dimen107
+\subfiglabelskip=\skip46
+\c@subfigure=\count88
+\c@lofdepth=\count89
+\c@subtable=\count90
+\c@lotdepth=\count91
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip47
+\subfig@bottom=\skip48
+)
+(/usr/share/texmf-tetex/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-tetex/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-tetex/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-tetex/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf-tetex/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/usr/share/texmf-tetex/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen108
+\Gin@req@width=\dimen109
+)
+(/usr/share/texmf-tetex/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip49
+\f@ncyO@elh=\skip50
+\f@ncyO@erh=\skip51
+\f@ncyO@olh=\skip52
+\f@ncyO@orh=\skip53
+\f@ncyO@elf=\skip54
+\f@ncyO@erf=\skip55
+\f@ncyO@olf=\skip56
+\f@ncyO@orf=\skip57
+)
+(/usr/share/texmf-tetex/tex/latex/tools/enumerate.sty
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks15
+)
+(/usr/share/texmf-tetex/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(/usr/share/texmf-tetex/tex/latex/framed/framed.sty
+Package: framed 2003/07/21 v 0.8a: framed or shaded text with page breaks
+\FrameRule=\dimen110
+\FrameSep=\dimen111
+) (./manual.aux)
+\openout1 = `manual.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
+
+(/usr/share/texmf-tetex/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+ [1
+
+] (./manual.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 6.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 6.
+
+(/usr/share/texmf-tetex/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+))
+\tf@toc=\write3
+\openout3 = `manual.toc'.
+
+ [1]
+File: images/filter-stream2.eps Graphic file (type eps)
+
+<images/filter-stream2.eps>
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2]
+File: images/arquitetura.eps Graphic file (type eps)
+ <images/arquitetura.eps> [3] [4]
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 295--295
+[]\OT1/cmtt/m/n/12 ############################################################
+########[] 
+ []
+
+
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 295--295
+[]\OT1/cmtt/m/n/12 export LD_LIBRARY_PATH=${DIR_VOID}:${DIR_FILTROS}:${LD_LIBRA
+RY_PATH}[] 
+ []
+
+[5]
+Overfull \hbox (4.188pt too wide) in paragraph at lines 308--316
+\OT1/cmr/m/n/12 tamb^^Sem po-de-mos, nesta se^^Xc~ao, as-so-ciar a cada \OT1/cm
+r/m/it/12 host \OT1/cmr/m/n/12 re-cur-sos e quan-ti-dade de mem^^Soria.
+ []
+
+[6] [7]
+Overfull \hbox (5.09366pt too wide) in paragraph at lines 392--392
+[]          \OT1/cmtt/m/n/12 <from filter="filterA" port="output" policy="broad
+cast"/>[] 
+ []
+
+
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 392--392
+[]          \OT1/cmtt/m/n/12 <from filter="filterB" port="output1" policy="broa
+dcast"/>[] 
+ []
+
+[8]
+File: images/divp4.eps Graphic file (type eps)
+ <images/divp4.eps>
+Overfull \hbox (9.79448pt too wide) in paragraph at lines 456--458
+[]\OT1/cmr/m/n/12 Todas as fun^^Xc~oes dis-pon^^S^^Pveis aos usu^^Sarios s~ao a
+ces-si-veis atrav^^Ses do ar-quivo ``void.h".
+ []
+
+[9]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 513.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 513.
+ [10]
+Overfull \hbox (5.09366pt too wide) in paragraph at lines 540--540
+[]                \OT1/cmtt/m/n/12 dsWriteBuffer(quocienteP, &quociente, sizeof
+(int));[] 
+ []
+
+[11]
+Overfull \hbox (3.16678pt too wide) in paragraph at lines 599--601
+[]\OT1/cmr/m/n/12 Ent~ao as ca-ches em con-junto com os da-e-mons re-pli-ca-do-
+res de to-das as inst^ancias
+ []
+
+[12] [13]
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 693--693
+[]\OT1/cmtt/m/n/12 CFLAGS =-I${PVM_ROOT}/include -I../../FilterDev -I../.. -I..
+/../Hash[] 
+ []
+
+[14] [15]
+Overfull \hbox (30.0915pt too wide) in paragraph at lines 790--795
+[]\OT1/cmr/m/n/12 Esta aplica^^Xc~ao pode ser vi-su-a-li-zada atrav^^Ses da fi-
+gura 3[], na mesma o fil-tro ``divP4"recebe
+ []
+
+[16] [17] [18] [19]
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 997--997
+[]\OT1/cmtt/m/n/12 ############################################################
+########[] 
+ []
+
+
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 997--997
+[]\OT1/cmtt/m/n/12 export LD_LIBRARY_PATH=${DIR_VOID}:${DIR_FILTROS}:${LD_LIBRA
+RY_PATH}[] 
+ []
+
+
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 1023--1023
+[]\OT1/cmtt/m/n/12 CFLAGS =-I${PVM_ROOT}/include -I../../FilterDev -I../.. -I..
+/../Hash[] 
+ []
+
+[20] [21]
+Overfull \hbox (17.44366pt too wide) in paragraph at lines 1194--1194
+[]   \OT1/cmtt/m/n/12 //cria a primeira tarefa e envida numToPrint para o proxi
+mo filtro[] 
+ []
+
+
+Overfull \hbox (42.14368pt too wide) in paragraph at lines 1194--1194
+[]      \OT1/cmtt/m/n/12 createTask(taskId, &oldTaskId, 1, (char *)numToPrint, 
+sizeof(int));[] 
+ []
+
+[22]
+Underfull \vbox (badness 10000) detected at line 1195
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1195
+ []
+
+[23]
+Underfull \vbox (badness 10000) detected at line 1195
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 1195
+ []
+
+[24] [25] [26]
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 1327--1327
+[]\OT1/cmtt/m/n/12 ############################################################
+########[] 
+ []
+
+
+Overfull \hbox (11.26866pt too wide) in paragraph at lines 1327--1327
+[]\OT1/cmtt/m/n/12 export LD_LIBRARY_PATH=${DIR_VOID}:${DIR_FILTROS}:${LD_LIBRA
+RY_PATH}[] 
+ []
+
+[27]
+Overfull \hbox (5.09366pt too wide) in paragraph at lines 1389--1389
+[]         \OT1/cmtt/m/n/12 <from filter="filterB" port="output1" policy="broad
+cast"/>[] 
+ []
+
+[28] [29] (./manual.aux) ) 
+Here is how much of TeX's memory you used:
+ 1463 strings out of 94501
+ 18279 string characters out of 1175811
+ 75510 words of memory out of 1000000
+ 4613 multiletter control sequences out of 10000+50000
+ 10697 words of font info for 41 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 8191
+ 29i,11n,43p,223b,323s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on manual.dvi (30 pages, 65348 bytes).

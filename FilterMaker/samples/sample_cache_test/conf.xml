@@ -1,0 +1,58 @@
+<config>
+<hostdec>
+	<host name="mob04">
+		<resource name="cache1"/>
+	</host>
+	<host name="mob05">
+		<resource name="cache2"/>
+	</host>
+</hostdec>
+<placement>
+	<filter name="filterA" libname="filterA.so" instances="1">
+		<instance demands="cache2"/>
+	</filter>
+	<filter name="filterB" libname="filterB.so" instances="1">
+		<instance demands="cache2"/>
+	</filter>
+	<!-- Filters Cache and Pool -->
+	<filter name="f-cache" libname="f-cache.so" instances="1" attached="yes">
+		<instance demands="cache1"/>
+	</filter>
+	<filter name="f-pool" libname="f-pool.so" instances="1" attached="yes"/>
+</placement>
+<layout>
+	<!-- Application Streams -->
+	<stream>
+		<from filter="filterA" port="output" policy="rr" />
+		<to filter="filterB" port="input"/>
+	</stream>
+
+	<!-- Cache to Application Streams -->
+	<stream>
+		<from filter="filterA" port="filterAToCache" policy="ls" policylib="label-thresholder-cache.so"/>
+		<to filter="f-cache" port="filterAToCache"/>
+	</stream>
+	<stream>
+		<from filter="f-cache" port="cacheTofilterA" policy="ls" policylib="label-thresholder-cache.so"/>
+		<to filter="filterA" port="cacheTofilterA"/>
+	</stream>
+	<stream>
+		<from filter="filterB" port="filterBToCache" policy="ls" policylib="label-thresholder-cache.so"/>
+		<to filter="f-cache" port="filterBToCache"/>
+	</stream>
+	<stream>
+		<from filter="f-cache" port="cacheTofilterB" policy="ls" policylib="label-thresholder-cache.so"/>
+		<to filter="filterB" port="cacheTofilterB"/>
+	</stream>
+
+	<!-- Cache to Pool Streams -->
+	<stream>
+		<from filter="f-cache" port="cacheToPool"/>
+		<to filter="f-pool" port="cacheToPool"  />
+	</stream>
+	<stream>
+		<from filter="f-pool" port="poolToCache"  policy="ls" policylib="label-antigo.so" />
+		<to filter="f-cache" port="poolToCache"  />
+	</stream>
+</layout>
+</config>

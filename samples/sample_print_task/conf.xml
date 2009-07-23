@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--datasucker configuration file-->
+<config>
+<hostdec>
+	<!-- host name="atlas" mem="512M"/-->
+	<host name="orfeu"/>
+</hostdec>
+
+	<placement>
+		<filter name="filterA"> 
+		</filter>
+		<filter name="filterB"> 
+		</filter>
+	</placement>
+	<layout>
+		<stream>
+			<from filter="filterA" port="output" policy="broadcast"/>
+			<to filter="filterB" port="input"/>
+		</stream>
+		<stream>
+			<from filter="filterB" port="output1" policy="broadcast"/>
+			<to filter="filterA" port="input1"/>
+		</stream>
+
+	</layout>
+</config>

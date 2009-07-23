@@ -1,0 +1,70 @@
+
+Execution time for impQuociente.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.000346 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000001 seconds
+timer_void          :          0.101303 seconds
+
+Execution time for impQuociente.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.000309 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000001 seconds
+timer_void          :          0.078306 seconds
+
+Execution time for impQuociente.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.000663 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000003 seconds
+timer_void          :          0.080740 seconds
+
+Execution time for impQuociente.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.000352 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :         -1.1000000 seconds
+timer_void          :          0.202497 seconds
+
+Execution time for impQuociente.0
+timer_init          :          0.000011 seconds
+timer_proc          :          0.008990 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000005 seconds
+timer_void          :          0.007805 seconds
+
+Execution time for impQuociente.0
+timer_init          :          0.000012 seconds
+timer_proc          :          0.015234 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000006 seconds
+timer_void          :          0.009324 seconds
+
+Execution time for impQuociente.0
+timer_init          :          0.000009 seconds
+timer_proc          :          0.000538 seconds
+timer_read          :          0.000000 seconds
+timer_write         :          0.000000 seconds
+timer_w_bkd         :          0.000000 seconds
+timer_ls            :          0.000000 seconds
+timer_finalize      :          0.000007 seconds
+timer_void          :          0.030399 seconds

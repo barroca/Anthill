@@ -1,0 +1,50 @@
+manager: pvm tid:t40007 hostname:poseidon
+
+====================================
+Manager.c: start parsing the file...
+	parser.c: host prometeu added to the Void enviroment, weight 1
+		parser.c: resource bla added to host prometeu
+	parser.c: ...
+	parser.c: reading filter leNum, library leNum.so, auto number of instances
+		parser.c: instance prometeu(chosen randomly)
+	parser.c: reading filter divP4, library divP4.so, auto number of instances
+		parser.c: instance prometeu(chosen randomly)
+	parser.c: reading filter impResto, library imp.so, auto number of instances
+		parser.c: instance prometeu(chosen randomly)
+	parser.c: reading filter impQuociente, library imp.so, auto number of instances
+		parser.c: instance prometeu(chosen randomly)
+	parser.c: ...
+	parser.c: filter leNum:saida(default policy) writes to filter divP4:dividendoP
+	parser.c: filter divP4:resto(default policy) writes to filter impResto:entrada
+	parser.c: filter divP4:quociente(default policy) writes to filter impQuociente:entrada
+Manager.c: parser ended successfully
+====================================
+
+Manager.c: spawning filter leNum instances
+Manager.c: spawning filter divP4 instances
+Manager.c: spawning filter impResto instances
+Manager.c: spawning filter impQuociente instances
+All process started, sending data now....
+
+Manager.c: sending filter data now
+Manager.c: starting work...
+Manager.c: EOW received from leNum, instance 0
+Manager.c: EOW received from divP4, instance 0
+Manager.c: EOW received from impResto, instance 0
+Manager.c: EOW received from impQuociente, instance 0
+Manager.c: Work ended
+
+Manager.c: starting work...
+Manager.c: EOW received from leNum, instance 0
+Manager.c: EOW received from divP4, instance 0
+Manager.c: EOW received from impResto, instance 0
+Manager.c: EOW received from impQuociente, instance 0
+Manager.c: Work ended
+
+Manager.c: starting work...
+Manager.c: EOW received from leNum, instance 0
+Manager.c: EOW received from divP4, instance 0
+Manager.c: EOW received from impQuociente, instance 0
+Manager.c: EOW received from impResto, instance 0
+Manager.c: Work ended
+

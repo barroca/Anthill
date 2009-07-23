@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<request xmlns="projectmobius.org/1/Message" type="RetrieveXMLRequest">
+  <MobiusHeader xmlns="projectmobius.org/1/Header" messageType="request">
+    <requestors>
+      <serviceIdentifier xmlns="" serviceId="MobiusClient" />
+    </requestors>
+    <responders />
+  </MobiusHeader>
+  <RetrieveXMLRequest>
+    <documents xmlns="">
+      <DocumentRequest levelsToMaterialize="2147483647" materializeIncludes="false" isRoot="true">
+        <DocumentReference dataService="MAKO://troll.ovl.osc.edu" collection="%s" documentId="%s" />
+      </DocumentRequest>
+    </documents>
+  </RetrieveXMLRequest>
+</request>

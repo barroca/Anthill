@@ -1,0 +1,39 @@
+#!/bin/bash 
+
+# program directory(absolute path)
+DIR_PROG=${HOME}/void3/samples/sample_filters
+
+# Void directory
+DIR_DS=${HOME}/void3
+# Filters directory
+DIR_FILTERS=${DIR_PROG}
+
+# the machine where manager is
+DISPLAY=orfeu:0
+
+#uncomment to debug
+#DEBUG=1
+
+# manger binary
+BIN="main"
+# debugger command line
+DEBUGGER="ddd"
+
+#End of header
+#modify below this only if you know what youre doing
+##################################################################################
+cd ${DIR_PROG}
+export LD_LIBRARY_PATH=${DIR_DS}:${DIR_FILTERS}:${LD_LIBRARY_PATH}
+
+# calls application
+# format: ./<manager binary>  <this file name, initScript>
+if [ "$DEBUG" = 1 ]; then
+
+	echo -e "break main\n run $*\n" > start.gdb
+
+	export DISPLAY=$DISPLAY
+	${DEBUGGER} ${BIN} -x start.gdb 
+#-x start.gdb
+else
+	./${BIN} $@
+fi

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+	<hostdec>
+		<host name="crystal1">
+			<resource name="_1_"/>
+		</host>
+		<host name="crystal2">
+			<resource name="_2_"/>
+		</host>
+	</hostdec>
+	<placement>
+		<filter name="reader" libname="reader.so" instances="1"> 
+			<instance demands="_1_"/>
+		</filter>
+
+      		<filter name="classifier" libname="classifier.so" instances="2">
+			<instance demands="_2_"/>
+			<instance demands="_2_"/>
+
+		</filter>
+      		<filter name="merger" libname="merger.so" instances="1">
+			<instance demands="_1_"/>
+		</filter>
+	</placement>
+	<layout>
+   		<stream>
+			<from filter="reader" port="trainning_to_class"/>
+			<to filter="classifier" port="trainning_from_reader" policy="rr"/>
+	      </stream>
+	      <stream>
+			<from filter="reader" port="classifier_to_class"/>
+			<to filter="classifier" port="classifier_from_reader" policy="broadcast"/>
+	      </stream>
+	      <stream>
+			<from filter="classifier" port="classifier_to_merger"/>
+			<to filter="merger" port="classifier_from_classifier" policy="broadcast"/>
+		</stream>       
+	</layout> 
+
+</config>

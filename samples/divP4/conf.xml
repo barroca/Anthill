@@ -1,0 +1,27 @@
+<config>
+<hostdec>
+	<host name="claudinha" mem="512M">
+		<resource name="bla" />
+	</host>
+</hostdec>
+<placement>
+	<filter name="leNum" libname="leNum.so"/>
+	<filter name="divP4" libname="divP4.so"/>
+	<filter name="impResto" libname="imp.so" />
+	<filter name="impQuociente" libname="imp.so"/>
+</placement>
+<layout>
+	<stream>
+		<from filter="leNum" port="saida"  />
+		<to filter="divP4" port="dividendoP"  />
+	</stream>
+	<stream>
+		<from filter="divP4" port="resto"  />
+		<to filter="impResto" port="entrada" policy="broadcast" />
+	</stream>
+	<stream>
+		<from filter="divP4" port="quociente"  />
+		<to filter="impQuociente" port="entrada"  />
+	</stream>
+</layout>
+</config>

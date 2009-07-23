@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+	<hostdec>
+		<host name="dc06"/>
+	</hostdec>
+	<placement>
+		<filter name="filterA" instances="1"/> 
+		<filter name="filterB" instances="1"/> 
+	</placement>
+	<layout>
+		<stream>
+			<from filter="filterA" port="output" policy="broadcast" />
+			<to filter="filterB" port="input"/>
+		</stream>
+	</layout>
+	<matLab>
+		<matLabFilter name="filterA" matlablibname="matLabFunction.so">
+			<function headername="mlfHist3DRGB" numoutputs="1" numinputoutpus="1" numinputs="2">
+				<argument argtype="mxArray**" serializefunction="mxArray**ToDCBuffer" serializelibname="serializeLib.so" order="1" msgIndexOut="1"/>
+				<argument argtype="mxArray*" inputtype="userArg" userargindex="1" deserializefunction="intToMxArray" deserializelibname="deserializeLib.so" order="2"/>
+				<argument argtype="mxArray*" inputtype="userArg" userargindex="2" deserializefunction="StringToMxArray" deserializelibname="mydeserializeLib.so" order="3"/>
+				<argument argtype="mxArray*" inputtype="userArg" userargindex="3" deserializefunction="StringToMxArray" deserializelibname="mydeserializeLib.so" order="4" serializefunction="mxArray**ToDCBuffer" serializelibname="serializeLib.so" msgIndexOut="1"/>
+			</function>
+		</matLabFilter>	
+		<matLabFilter name="filterB" matlablibname="matLabFunction.so">
+			<function headername="mlfHistPlot" numinputs="1">
+				<argument argtype="mxArray*" inputtype="msg" msgindexin = "1" deserializefunction="DCBufferMxArray**ToMxArray*" deserializelibname="deserializeLib.so" order="1"/> 
+			</function>
+		</matLabFilter>
+	</matLab>
+</config>

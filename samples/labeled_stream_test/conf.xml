@@ -1,0 +1,20 @@
+<config>
+<hostdec>
+	<host name="claudinha" mem="512M "/>
+</hostdec>
+<placement>
+	<filter name="EnMsg" libname="EnMsg.so" instances="1">
+	</filter>
+	<filter name="acc" libname="acc.so" instances="1">
+	</filter>
+</placement>
+
+<layout>
+	<stream>
+		<!--from filter="EnMsg" port="saida" /-->
+		<from filter="EnMsg" port="saida" />
+		<to filter="acc" port="entrada"  policy="ls" policylib="label.so"/>
+	</stream>
+</layout>
+
+</config>
