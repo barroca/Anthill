@@ -606,7 +606,7 @@ int appendWork(Layout *layout, void *work, int workSize){
 #ifdef ATTACH
 	int totalAttachedFilters = 0;
 #endif
-	int reconf = 0 /** should we reconfigure? */, remainingReconfs = 6; //how many times should we try?
+	int reconf = 0 /** should we reconfigure? */, remainingReconfs = 0; //how many times should we try?
 
 #ifdef VOID_INST
 #ifdef BMI_FT
@@ -836,6 +836,9 @@ int appendWork(Layout *layout, void *work, int workSize){
 					if (remainingReconfs <= 0){
 						//max number of reconfigurations reached... aborting
 						fprintf(stderr, "Manager.c: max reconfigurations reached, aborting...\n");
+						fflush(stderr);
+						fprintf(stdout, "Manager.c: max reconfigurations reached, aborting...\n");
+						fflush(stdout);
 						reconf = 0;
 
 						// kill all instances which might be alive
