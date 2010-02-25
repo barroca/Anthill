@@ -190,10 +190,10 @@ class AHEventList
 {
 	private:
 		list<AHData*> eventList;
-		pthread_mutex_t eventListLock;
 		string stream;
 		bool eow;
-	
+	protected:
+		pthread_mutex_t eventListLock;
 	public:
 		// It is the function that knows how to handle this type
 		// of events
@@ -232,14 +232,14 @@ class AHEventList
 
 class AHDispachList: public AHEventList{
 	private:
-		pthread_mutex_t getFirstMutex;   
+		pthread_mutex_t& getFirstMutex;   
 
 	public:
-		AHDispachList(){
-			pthread_mutex_init(&getFirstMutex, NULL);
+		AHDispachList() : getFirstMutex(eventListLock){
+			//pthread_mutex_init(&getFirstMutex, NULL);
 		};
 		~AHDispachList(){
-			pthread_mutex_destroy(&getFirstMutex);
+			//pthread_mutex_destroy(&getFirstMutex);
 		};
 
 		// send the next event available in the event list
@@ -434,6 +434,10 @@ class AHFilter
 
 		// it is "abstractly" implemented inside the filters
 		virtual void run(AHData *data){};
+
+		unsigned int getDispatchListSize();
+
+		unsigned int getReceiveListSize(streamInputHandler handler);
 
 };
 

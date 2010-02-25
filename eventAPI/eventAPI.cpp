@@ -436,6 +436,15 @@ bool AHFilter::sendMsg(AHData *data){
 }
 
 
+unsigned int AHFilter::getDispatchListSize() {
+	return dispachedEvents.size();
+}
+
+
+unsigned int AHFilter::getReceiveListSize(streamInputHandler handler) {
+	assert(handler >= 0 &&  handler < static_cast<int>(eventLists.size()));
+	return eventLists[handler].size();
+}
 
 
 //////////////////// END AHFilter Functions //////////////////////////
