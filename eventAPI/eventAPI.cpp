@@ -2,7 +2,7 @@
 #include "FilterDev/FilterDev.h"
 #include <dlfcn.h>
  #include <unistd.h>
-
+#include <string.h>
 AHFilter *filter = NULL;
 filterFactory_t* filterLibFactory = NULL; 
 
