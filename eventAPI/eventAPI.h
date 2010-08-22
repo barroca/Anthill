@@ -1,4 +1,3 @@
-
 #ifndef EVENT_API_H
 #define EVENT_API_H
 
@@ -14,6 +13,9 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 
 #define KB_1          1024
 #define KB_2          2048
